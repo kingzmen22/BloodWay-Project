@@ -75,6 +75,10 @@ include('./includes/connect.php');
     </div>
   </div>
 
+<!-- FAQ -->
+
+
+
   <!-- footer -->
 
   <?php

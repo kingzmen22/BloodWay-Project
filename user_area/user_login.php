@@ -95,17 +95,11 @@ if (isset($_POST['user_login'])) {
             background-color: #ffffff;
         }
 
-        .error-box {
+        .alert {
             height: 30px;
-            background-color: lightpink;
-            border-width: 1px;
-            border-radius: 6px;
-            border: 2px solid lightcoral;
             display: none;
-        }
-
-        .error-msg {
-            color: #2e2e2d;
+            margin-bottom: 10px;
+            padding: .2rem 1rem;
         }
 
         .form-group {
@@ -122,7 +116,7 @@ if (isset($_POST['user_login'])) {
 if ($error != null) {
 ?>
     <style>
-        .error-box {
+        .alert {
             display: block;
         }
     </style>
@@ -152,8 +146,8 @@ if ($error != null) {
                 <p>Please fill in this form to Sign in to your account!</p>
                 <hr>
 
-                <div class="error-box">
-                    <center class="error-msg"><?php echo $error ?></center>
+                <div class="alert alert-danger">
+                    <center><?php echo $error ?></center>
                 </div>
 
                 <div class="form-group">

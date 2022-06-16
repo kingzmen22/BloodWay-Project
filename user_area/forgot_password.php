@@ -20,25 +20,19 @@
         padding-top: 70px;
     }
 
-    .error-box {
-        height: 30px;
-        background-color: lightpink;
-        border-width: 1px;
-        border-radius: 6px;
-        border: 2px solid lightcoral;
-        display: none;
-    }
-
-    .error-msg {
-        color: #2e2e2d;
-    }
+    .alert {
+            height: 30px;
+            display: none;
+            margin-bottom: 10px;
+            padding: .2rem 1rem;
+        }
 </style>
 
 <?php
 if ($error != null) {
 ?>
     <style>
-        .error-box {
+        .alert {
             display: block;
         }
     </style>
@@ -61,8 +55,8 @@ if ($error != null) {
 
                                 <form id="register-form" role="form" autocomplete="off" class="form" method="post">
 
-                                    <div class="error-box">
-                                        <center class="error-msg"><?php echo $error ?></center>
+                                    <div class="alert alert-danger">
+                                        <center><?php echo $error ?></center>
                                     </div>
 
                                     <div class="form-group">

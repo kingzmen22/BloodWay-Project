@@ -20,6 +20,7 @@ icon.onclick = function () {
 
   if (document.body.classList.contains("dark-theme")) {
     icon.src = "./images/sun.png";
+    
   } else {
     icon.src = "./images/moon.png";
   }
@@ -32,4 +33,3 @@ if (GetTheme === "DARK") {
   document.body.classList = "dark-theme";
   icon.src = "./images/sun.png";
 }
-
