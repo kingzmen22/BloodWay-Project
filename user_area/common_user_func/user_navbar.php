@@ -11,7 +11,7 @@ include('../includes/connect.php');
         <a id="logo-a-tag" href="../index.php">
             <img id="logo-home" src="../images/logotransparent.png" alt="" />
         </a>
-        <img src="../images/moon.png" id="icon" alt="dark mode" />
+        <img src="../images/moon.png" id="icon" alt="dark mode" data-toggle="tooltip" title="Dark Mode" />
         <ul>
             <li><a class="active" href="../index.php">Home</a></li>
             <li><a href="./reg_form.php">Be A Donor</a></li>

@@ -13,9 +13,9 @@
       </div>
       <div class="link-boxes">
         <ul class="box">
-          <li><a href="./index.php">Home</a></li>
-          <li><a href="./contact_us.php">Contact us</a></li>
-          <li><a href="./aboutUs.php">About us</a></li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">About us</a></li>
           <li><a href="#">Feedback</a></li>
         </ul>
       </div>

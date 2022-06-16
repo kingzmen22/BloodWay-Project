@@ -14,13 +14,13 @@ if (isset($_POST['user_signup'])) {
 
     //select query
 
-    $select_query = "Select * from user_details where user_name='$user_username' or user_email='$user_email'";
+    $select_query = "Select * from user_details where  user_email='$user_email'";
     $result = mysqli_query($con, $select_query);
     $rows_count = mysqli_num_rows($result);
     if ($rows_count > 0) {
-        $error = "Username and Email already exist!";
+        $error = "Email you entered already exist!";
     } else if ($user_password != $conf_user_password) {
-        $error = "Password do not match!";
+        $error = "Passwords do not match!";
     } else {
         // sanitzing data
         $user_username = $con->real_escape_string($user_username);
@@ -30,7 +30,7 @@ if (isset($_POST['user_signup'])) {
 
         // verification key generating
 
-        $vkey = md5(time() . $user_username);
+        $vkey = password_hash($user_username, PASSWORD_DEFAULT);
 
         //insert query
 
@@ -204,38 +204,9 @@ if ($error != null) {
 
     <!-- footer -->
 
-    <footer>
-        <div class="content">
-            <div class="top">
-                <div class="logo-details">
-                    <i class="fab fa-slack"></i>
-                    <span class="logo_name">BloodWay</span>
-                </div>
-                <div class="media-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="link-boxes">
-                <ul class="box">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Contact us</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Feedback</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="bottom-details">
-            <div class="bottom_text">
-                <span class="copyright_text">Copyright © 2022 <a href="#">BloodWay.</a>All rights reserved</span>
-                <span class="policy_terms">
-                    <a href="#">Privacy policy</a>
-                    <a href="#">Terms & condition</a>
-                </span>
-            </div>
-        </div>
-    </footer>
+    <?php
+  include('common_user_func/user_footer.php');
+  ?>
 
 </body>
 

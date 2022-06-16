@@ -74,13 +74,12 @@ include('./includes/connect.php');
       </div>
     </div>
   </div>
-
+  
 <!-- FAQ -->
-
-
-
+<?php
+  include('common_func/FAQ.php');
+  ?>
   <!-- footer -->
-
   <?php
   include('common_func/footer.php');
   ?>
