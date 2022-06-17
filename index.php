@@ -6,13 +6,16 @@ include('./includes/connect.php');
 <html lang="en" dir="ltr">
 
 <head>
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  
   <meta charset="utf-8" />
   <title>BloodWay Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="./css/style_signup.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
 </head>
 
@@ -74,9 +77,9 @@ include('./includes/connect.php');
       </div>
     </div>
   </div>
-  
-<!-- FAQ -->
-<?php
+
+  <!-- FAQ -->
+  <?php
   include('common_func/FAQ.php');
   ?>
   <!-- footer -->
