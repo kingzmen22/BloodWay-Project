@@ -146,6 +146,8 @@ form .btn {
 
 .form-control {
   font-size: 15px;
+  background-color: #181c28;
+  color: black;
 }
 
 .form-control,
@@ -175,7 +177,6 @@ form .btn {
 }
 
 .signup-form h2 {
-  color: #333;
   font-weight: bold;
   margin-top: 0;
 }

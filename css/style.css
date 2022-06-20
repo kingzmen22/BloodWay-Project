@@ -19,9 +19,11 @@
   --leftside-text-cform: #49494e;
   --leftside-topic-cform: #000000;
   --rightside-topic-subtext-cform: #000000;
-  --textflied-bg-cform: rgb(230, 229, 229);
+  --textfield-bg-cform: rgb(230, 229, 229);
   --ham-menu-button: rgb(18, 32, 48);
   --black-text: black;
+  --white-text: white;
+  --text-grayToWhite:#5d5d5d;
 }
 
 .dark-theme {
@@ -34,9 +36,11 @@
   --leftside-text-cform: #ffffff;
   --leftside-topic-cform: #1264e3;
   --rightside-topic-subtext-cform: #ffffff;
-  --textflied-bg-cform: rgb(32, 32, 32);
+  --textfield-bg-cform: rgb(16, 24, 32);
   --ham-menu-button: rgb(184, 201, 218);
   --black-text: white;
+  --white-text: black;
+  --text-grayToWhite:#3582f5;
 }
 
 body {
@@ -321,13 +325,16 @@ a:hover {
   height: 100%;
   width: 100%;
   border: none;
+  color: var(--black-text);
   outline: none;
   font-size: 16px;
-  background: var(--textflied-bg-cform);
+  background: var(--textfield-bg-cform);
   border-radius: 6px;
   padding: 0 15px;
   resize: none;
 }
+
+
 .right-side .message-box {
   min-height: 110px;
 }
@@ -598,7 +605,7 @@ select:focus {
   margin-top: 1px;
   padding-top: 5px;
   margin-bottom: 15px;
-  color: rgb(100, 98, 98);
+  color: var(--black-text);
 }
 
 .row-cc {
@@ -638,11 +645,12 @@ select:focus {
   padding: 20px 20px;
   text-align: center;
   font-size: 15px;
+  color: var(--black-text);
 }
 
 .card-body .btn-cc {
   display: inline-block;
-  color: var(--primary-color);
+  color: white;
   width: 120px;
   border: none;
   text-align: center;
@@ -729,7 +737,7 @@ footer .content .top {
   margin-bottom: 15px;
 }
 .content .top .logo-details {
-  color: var(--primary-color);
+  color: white;
   font-size: 30px;
 }
 .content .top .media-icons {
@@ -742,7 +750,7 @@ footer .content .top {
   border-radius: 50%;
   text-align: center;
   line-height: 40px;
-  color: var(--primary-color);
+  color: white;
   font-size: 17px;
   text-decoration: none;
   transition: all 0.4s ease;
@@ -752,14 +760,14 @@ footer .content .top {
 }
 .top .media-icons a:nth-child(1):hover {
   color: #4267b2;
-  background: var(--primary-color);
+  background: white;
 }
 .top .media-icons a:nth-child(2) {
   background: #e1306c;
 }
 .top .media-icons a:nth-child(2):hover {
   color: #e1306c;
-  background: var(--primary-color);
+  background: white;
 }
 
 .top .media-icons a:nth-child(3) {
@@ -767,7 +775,7 @@ footer .content .top {
 }
 .top .media-icons a:nth-child(3):hover {
   color: #ff0000;
-  background: var(--primary-color);
+  background: white;
 }
 footer .content .link-boxes {
   width: 100%;
@@ -783,7 +791,7 @@ footer .content .link-boxes .box {
   width: calc(100% / 5 - 10px);
 }
 .content .link-boxes .box .link_name {
-  color: var(--primary-color);
+  color: white;
   font-size: 18px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -796,14 +804,14 @@ footer .content .link-boxes .box {
   bottom: -2px;
   height: 2px;
   width: 35px;
-  background: var(--primary-color);
+  background: white;
 }
 .content .link-boxes .box li {
   margin: 6px 0;
   list-style: none;
 }
 .content .link-boxes .box li a {
-  color: var(--primary-color);
+  color: white;
   font-size: 14px;
   font-weight: 400;
   text-decoration: none;
@@ -829,7 +837,7 @@ footer .bottom-details .bottom_text {
 .bottom-details .bottom_text a {
   font-size: 14px;
   font-weight: 300;
-  color: var(--primary-color);
+  color:white;
   opacity: 0.8;
   text-decoration: none;
 }
@@ -1051,9 +1059,12 @@ footer .bottom-details .bottom_text {
   text-transform: uppercase;
   font-size: 28px;
 }
+.title-abt{
+  color: var(--black-text);
+}
 .content-section-abt .content-abt h3 {
   margin-top: 20px;
-  color: #5d5d5d;
+  color: var(--text-grayToWhite);
   font-size: 21px;
 }
 .content-section-abt .content-abt p {
@@ -1061,6 +1072,10 @@ footer .bottom-details .bottom_text {
   font-family: sans-serif;
   font-size: 18px;
   line-height: 1.5;
+}
+
+.content-abt{
+  color: var(--black-text);
 }
 .content-section-abt .content-abt .button-abt {
   margin-top: 30px;
@@ -1188,5 +1203,3 @@ footer .bottom-details .bottom_text {
     text-align: left;
   }
 }
-
-/* Bootstrap signup form */

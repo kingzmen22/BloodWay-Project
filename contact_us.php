@@ -20,8 +20,8 @@ include('./includes/connect.php');
 
   <!-- NavBar -->
   <?php
-include('common_func/navbar.php');
-?>
+  include('common_func/navbar.php');
+  ?>
 
   <!-- contact us form -->
   <div class="container-contact">
@@ -151,8 +151,8 @@ include('common_func/navbar.php');
   <!-- footer -->
 
   <?php
-include('common_func/footer.php');
-?>
+  include('common_func/footer.php');
+  ?>
 
   <!-- <script>
     const parentContainer = document.querySelector('.container-cc');

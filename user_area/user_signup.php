@@ -75,6 +75,21 @@ if (isset($_POST['user_signup'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <style>
+        :root {
+            --form-bg: white;
+            --text-form: black;
+            --white-text: white;
+            --atag-color: #031b85;
+            --formfield-bg: #ffffff;
+        }
+
+        .dark-theme {
+            --form-bg: rgb(21, 32, 43);
+            --text-form: white;
+            --white-text: rgb(21, 32, 43);
+            --atag-color: #ffffff;
+            --formfield-bg: #181c28;
+        }
 
         a:hover {
             background: var(--nav-element-hover);
@@ -96,6 +111,27 @@ if (isset($_POST['user_signup'])) {
 
         .form-group {
             margin-top: 10px;
+        }
+
+        .signup-form form {
+            background: var(--form-bg);
+        }
+
+        .signup-form h2 {
+            color: var(--text-form);
+        }
+
+        .signup-form form a:hover {
+            background-color: var(--white-text);
+        }
+
+        .signup-form form a {
+            color: var(--atag-color);
+        }
+
+        .form-control {
+            background-color: var(--formfield-bg);
+            color: var(--text-form);
         }
     </style>
 
@@ -197,8 +233,8 @@ if ($error != null) {
     <!-- footer -->
 
     <?php
-  include('common_user_func/user_footer.php');
-  ?>
+    include('common_user_func/user_footer.php');
+    ?>
 
 </body>
 

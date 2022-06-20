@@ -44,14 +44,30 @@ if (isset($_POST['user_login'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Signin to Account</title>
-
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../css/style_signup.css">
-    <link rel="stylesheet" href="../css/style.css">
+
     <style>
+        :root {
+            --form-bg: white;
+            --text-form: black;
+            --white-text: white;
+            --atag-color: #031b85;
+            --formfield-bg: #ffffff;
+        }
+
+        .dark-theme {
+            --form-bg: rgb(21, 32, 43);
+            --text-form: white;
+            --white-text: rgb(21, 32, 43);
+            --atag-color: #ffffff;
+            --formfield-bg: #181c28;
+        }
+
         .signup-form {
             width: 400px;
             margin: 0 auto;
@@ -63,9 +79,13 @@ if (isset($_POST['user_login'])) {
             height: 450px;
             border-radius: 10px;
             margin-bottom: 15px;
-            background: #fff;
+            background: var(--form-bg);
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
+        }
+
+        .signup-form h2 {
+            color: var(--text-form);
         }
 
         .signup-form .form-group {
@@ -80,7 +100,7 @@ if (isset($_POST['user_login'])) {
         }
 
         .signup-form form a:hover {
-            background-color: #ffffff;
+            background-color: var(--white-text);
         }
 
         .alert {
@@ -97,6 +117,15 @@ if (isset($_POST['user_login'])) {
         #for_pass {
             height: 25px;
             font-size: 16px;
+        }
+
+        .signup-form form a {
+            color: var(--atag-color);
+        }
+
+        .form-control {
+            background-color: var(--formfield-bg);
+            color: var(--text-form);
         }
     </style>
 </head>
@@ -130,7 +159,7 @@ if ($error != null) {
         </div>
         <div class="signup-form">
             <form action="" method="post">
-                <h2>Sign In</h2>
+                <h2 class="signin-title">Sign In</h2>
                 <p>Please fill in this form to Sign in to your account!</p>
                 <hr>
 
