@@ -12,6 +12,7 @@ include('./includes/connect.php');
         <a id="logo-a-tag" href="index.php">
             <img id="logo-home" src="images/logotransparent.png" alt="" />
         </a>
+        <div class="nav-drkbtn-ul">
         <img src="images/moon.png" id="icon" alt="dark mode"  data-toggle="tooltip" title="Dark Mode" />
         <ul>
             <li><a class="active" href="index.php">Home</a></li>
@@ -32,8 +33,10 @@ include('./includes/connect.php');
             else{
                 echo  "<li><a href='user_area/user_logout.php'>Logout</a></li>";
             }
-            ?>
-            
+            ?>  
         </ul>
+
+        </div>
+       
     </nav>
 </header>

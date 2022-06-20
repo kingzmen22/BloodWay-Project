@@ -34,13 +34,15 @@ include('../includes/connect.php');
             <span class="details-reg">Full Name</span>
             <input type="text" placeholder="Enter your name" required>
           </div>
+
+          <div class="input-box-reg">
+            <span class="details-reg">Date of Birth</span>
+            <input type="date" placeholder="Enter your DOB" required>
+          </div>
+
           <div class="input-box-reg">
             <span class="details-reg">Age</span>
-            <input type="text" placeholder="Enter your Age" required>
-          </div>
-          <div class="input-box-reg">
-            <span class="details-reg">Email</span>
-            <input type="text" placeholder="Enter your email" required>
+            <input type="number" min="18" max="60" placeholder="Enter your Age" required>
           </div>
           <div class="input-box-reg">
             <span class="details-reg">Phone Number</span>
@@ -69,27 +71,32 @@ include('../includes/connect.php');
             </select>
           </div>
 
-        </div>
-        <div class="gender-details">
-          <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
-          <span class="gender-title">Gender</span>
-          <div class="category">
-            <label for="dot-1">
-              <span class="dot one"></span>
-              <span class="gender">Male</span>
-            </label>
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span class="gender">Female</span>
-            </label>
-            <label for="dot-3">
-              <span class="dot three"></span>
-              <span class="gender">Prefer not to say</span>
-            </label>
+          <div class="input-box-reg">
+            <span class="details-reg">Weight</span>
+            <input type="number" min="55" placeholder="Enter your Age" required>
           </div>
+         
         </div>
+ <div class="gender-details">
+            <input type="radio" name="gender" id="dot-1">
+            <input type="radio" name="gender" id="dot-2">
+            <input type="radio" name="gender" id="dot-3">
+            <span class="gender-title">Gender</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender">Male </span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender">Female </span>
+              </label>
+              <label for="dot-3">
+                <span class="dot three"></span>
+                <span class="gender">Other</span>
+              </label>
+            </div>
+          </div>
         <div class="button-reg">
           <input type="submit" value="Register">
         </div>

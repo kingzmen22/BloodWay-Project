@@ -44,16 +44,13 @@ if (isset($_POST['user_login'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Signin to Account</title>
-    <link rel="stylesheet" href="../css/style.css">
+
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style_signup.css">
-
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .signup-form {
             width: 400px;
@@ -73,15 +70,6 @@ if (isset($_POST['user_login'])) {
 
         .signup-form .form-group {
             margin-bottom: 25px;
-        }
-
-        #icon {
-            display: inline-block;
-            position: relative;
-            width: 25px;
-            cursor: pointer;
-            left: 430px;
-            margin-bottom: 6px;
         }
 
         a:hover {
@@ -187,8 +175,8 @@ if ($error != null) {
     <!-- footer -->
 
     <?php
-  include('common_user_func/user_footer.php');
-  ?>
+    include('common_user_func/user_footer.php');
+    ?>
 
 </body>
 
@@ -229,5 +217,8 @@ if ($error != null) {
     }
 </script>
 <script src="js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </html>

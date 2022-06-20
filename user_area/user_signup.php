@@ -75,14 +75,6 @@ if (isset($_POST['user_signup'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <style>
-        #icon {
-            display: inline-block;
-            position: relative;
-            width: 25px;
-            cursor: pointer;
-            left: 430px;
-            margin-bottom: 6px;
-        }
 
         a:hover {
             background: var(--nav-element-hover);
