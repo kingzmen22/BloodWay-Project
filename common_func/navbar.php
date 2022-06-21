@@ -16,7 +16,7 @@ include('./includes/connect.php');
             <label for="check" class="checkbtn">
                 <i id="ham-menu-icon" class="fas fa-bars"></i>
             </label>
-            <ul>
+            <ul class="nav-ul">
                 <li><a class="active" href="index.php">Home</a></li>
                 <li><a href="user_area/reg_form.php">Be A Donor</a></li>
                 <li><a href="findADonor.php">Find A Donor</a></li>

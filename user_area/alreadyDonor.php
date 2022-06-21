@@ -14,11 +14,28 @@ include('../includes/connect.php');
     <title>BloodWay Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/modal_bs_custom.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
+    body{
+        height: auto;
+    }
+    .w3-card-4 {
+        margin: 20px;
+    }
 
+    #delete {
+        float: right;
+        border-radius: 5px;
+    }
+
+    #edit {
+        border-radius: 5px;
+    }
 </style>
 
 <body>
@@ -28,28 +45,38 @@ include('../includes/connect.php');
     include('common_user_func/user_navbar.php');
     ?>
 
-    <div class="donor-container">
-        <h2>You're already a donor</h2>
-        <br>
-        <h3>Donor Details</h3>
-        <div class="dcontainer">
-            <div class="dcard__container">
-                <div class="dcard">
-                    <div class="dcard__content">
-                        <h3 class="dcard__header">
-                            <?php
-                            if (isset($_SESSION['donor_name'])) {
-                                $name=$_SESSION['donor_name'];
-                                echo $name;
-                            };
-                            ?>
-                        </h3>
-                        <p class="dcard__info">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <button class="dcard__button">Read now</button>
+    <!-- modal for warning -->
+
+    <div class="container-modal">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Congratulations! You're already a donor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>You can only register one donor in an account.<br>Registered donor's details are given here.</p>
                     </div>
                 </div>
+
             </div>
         </div>
+    </div>
+
+    <div class="w3-card-4">
+        <div class="w3-container ">
+            <h3>John Doe</h3>
+</div>
+        <div class="w3-container">
+            <p>1 new friend request</p>
+            <hr>
+            <p>CEO at Mighty Schools. Marketing and Advertising. Seeking a new job and new opportunities.</p><br>
+        </div>
+        <button class="w3-button w3-green" id="edit"><i class="bi bi-pencil-square"></i> Edit</button>
+        <button class="w3-button w3-red" id="delete"> <i class="bi bi-trash"></i> Delete</button>
     </div>
 
 
@@ -61,6 +88,13 @@ include('../includes/connect.php');
 
 
 </body>
+
+<script>
+    $(document).ready(function() {
+        // Show the Modal on load
+        $("#myModal").modal("show");
+    });
+</script>
 
 <!-- dark theme js -->
 <script>
