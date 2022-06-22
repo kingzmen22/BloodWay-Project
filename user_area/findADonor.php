@@ -1,5 +1,14 @@
 <?php
-include('./includes/connect.php');
+session_start();
+include('../includes/connect.php');
+
+if (!isset($_SESSION["user_email"])) {
+    // when user is not logged in you cant search a donor
+    // so redirecting to login page
+    header('location:findaDonor_login_redirect.php');
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +19,8 @@ include('./includes/connect.php');
   <meta charset="utf-8" />
   <title>BloodWay Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="./css/style_signup.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style_signup.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
 </head>
@@ -25,7 +34,7 @@ include('./includes/connect.php');
 <body>
   <!-- NavBar -->
   <?php
-include('common_func/navbar.php');
+include('common_user_func/user_navbar.php');
 ?>
 
 
@@ -223,16 +232,49 @@ include('common_func/navbar.php');
   <!-- footer -->
 
   <?php
-include('common_func/footer.php');
+include('common_user_func/user_footer.php');
 ?>
 
 
 </body>
 
+<!-- dark theme js -->
+<script>
+  var icon = document.getElementById("icon");
+
+  icon.onclick = function() {
+    var SetTheme = document.body;
+
+    SetTheme.classList.toggle("dark-theme");
+
+    var theme;
+
+    if (SetTheme.classList.contains("dark-theme")) {
+      console.log("Dark mode");
+      theme = "DARK";
+    } else {
+      console.log("Light mode");
+      theme = "LIGHT";
+    }
+
+    localStorage.setItem("PageTheme", JSON.stringify(theme));
+
+    if (document.body.classList.contains("dark-theme")) {
+      icon.src = "../images/sun.png";
+    } else {
+      icon.src = "../images/moon.png";
+    }
+  };
+
+  let GetTheme = JSON.parse(localStorage.getItem("PageTheme"));
+  console.log(GetTheme);
+
+  if (GetTheme === "DARK") {
+    document.body.classList = "dark-theme";
+    icon.src = "../images/sun.png";
+  }
+</script>
 
 
-
-
-<script src="js/dark_theme.js"></script>
 
 </html>

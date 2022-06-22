@@ -46,26 +46,37 @@ include('../includes/connect.php');
         color: white;
         border-radius: 4px;
         margin-bottom: 20px;
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .content-redir {
         text-align: center;
         background-color: var(--content-redir-bg);
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         color: black;
         border-radius: 4px;
-        margin-bottom: 20px;
+        margin-bottom: 21px;
     }
 
-    .butn-redir {
+    .butn-redir1 {
         border: none;
         padding: 12px;
         border-radius: 25px;
         background-color: #1264e3;
         font-weight: 600;
         color: white;
+        margin-right: 15px;
+    }
+
+    .butn-redir2 {
+        border: none;
+        padding: 12px;
+        border-radius: 25px;
+        background-color: #ff4444;
+        font-weight: 600;
+        color: white;
+        margin-left: 15px;
     }
 
     .button-center-redir {
@@ -78,9 +89,14 @@ include('../includes/connect.php');
         background-color: var(--container-redir-bg);
     }
 
-    .butn-redir:hover {
+    .butn-redir1:hover {
         font-weight: 600;
         background-color: #044cb8;
+    }
+
+    .butn-redir2:hover {
+        font-weight: 600;
+        background-color: #CC0000;
     }
 </style>
 
@@ -95,12 +111,17 @@ include('../includes/connect.php');
     <div class="container-redir">
         <div class="card-redir">
             <h2 class="head-redir">Login to Register !</h2>
-            <h3 class="content-redir">You have to login to your account to register a donor</h3>
+            <h3 class="content-redir">You have to login to your account to register a donor.<br>If you are new here, Signup to continue</h3>
             <div class="button-center-redir">
-                <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir"><i class="bi bi-box-arrow-in-right"> </i> Click to login</button></a>
+                <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-box-arrow-in-right"> </i> Click to login</button></a>
+                <a href="user_signup.php" class="butn-a-redir"> <button class="butn-redir2"><i class="bi bi-box-arrow-in-right"> </i> Click to signup</button></a>
+
             </div>
+
         </div>
     </div>
+
+
 
     <!-- footer -->
 

@@ -630,7 +630,7 @@ select:focus {
 .card-header {
   text-align: center;
   padding: 1px 1px;
-  background: whitesmoke;
+  background: var(--primary-color);
   color: var(--primary-color);
 }
 

@@ -19,7 +19,7 @@ include('./includes/connect.php');
             <ul class="nav-ul">
                 <li><a class="active" href="index.php">Home</a></li>
                 <li><a href="user_area/reg_form.php">Be A Donor</a></li>
-                <li><a href="findADonor.php">Find A Donor</a></li>
+                <li><a href="user_area/findADonor.php">Find A Donor</a></li>
 
                 <li>
                     <a href="#">More <i class="fas fa-caret-down"></i></a>

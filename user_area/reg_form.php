@@ -13,7 +13,7 @@ if (isset($_SESSION["user_email"])) {
   if ($rows_count > 0) {
     header('location:alreadyDonor.php');
   }
-}else{
+} else {
   // when user is not logged in you cant register a donor so redirecting to login page
   header('location:regform_login_redirect.php');
 }
@@ -65,6 +65,10 @@ if (isset($_POST['donor_reg'])) {
   $rows_count = mysqli_num_rows($result);
   if ($rows_count > 0) {
     $error = "Donor with same email id already exist!";
+    // session variables created
+    $fetch = $result->fetch_assoc();
+    $donor_name = $fetch['donor_name'];
+    $_SESSION['donor_name'] = $donor_name;
   } else {
     // sanitzing data
     $donor_name = $con->real_escape_string($donor_name);
@@ -76,11 +80,6 @@ if (isset($_POST['donor_reg'])) {
     $donor_weight = $con->real_escape_string($donor_weight);
     $donor_gender = $con->real_escape_string($donor_gender);
 
-    // session variables created
-
-    $_SESSION['donor_name'] = $donor_name;
-
-
     //insert query
 
     $insert_query = "insert into donor_details (donor_name,donor_email,donor_dob,donor_age,donor_mobNum,donor_zone,donor_bgrp,donor_gender,donor_weight) values ('$donor_name','$donor_email','$donor_dob','$donor_age','$donor_mobnum','$donor_zone','$donor_bgrp','$donor_gender','$donor_weight')";
@@ -89,8 +88,6 @@ if (isset($_POST['donor_reg'])) {
   }
 }
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -230,29 +227,6 @@ if ($error != null) {
           </div>
         </div>
 
-
-
-
-        <!-- <div class="gender-details">
-          <input type="radio" name="donor_gender" id="dot-1">
-          <input type="radio" name="donor_gender" id="dot-2">
-          <input type="radio" name="donor_gender" id="dot-3">
-          <span class="gender-title">Gender</span>
-          <div class="category">
-            <label for="dot-1">
-              <span class="dot one"></span>
-              <span class="gender">Male </span>
-            </label>
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span class="gender">Female </span>
-            </label>
-            <label for="dot-3">
-              <span class="dot three"></span>
-              <span class="gender">Other</span>
-            </label>
-          </div>
-        </div> -->
         <div class="button-reg">
           <input type="submit" value="Register" name="donor_reg">
         </div>

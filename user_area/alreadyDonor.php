@@ -68,7 +68,11 @@ include('../includes/connect.php');
 
     <div class="w3-card-4">
         <div class="w3-container ">
-            <h3>John Doe</h3>
+            <h3><?php
+            
+            echo $_SESSION["user_email"];
+            ?>
+            </h3>
 </div>
         <div class="w3-container">
             <p>1 new friend request</p>
