@@ -4,6 +4,8 @@ session_start();
 include('../includes/connect.php');
 $error = "";
 if (isset($_SESSION["user_email"])) {
+  // if the user register a donor one time user cant register another donor. 
+  //so redirected to a error showing page
   $conf_email = $_SESSION['user_email'];
   $select_query = "Select * from donor_details where  donor_email='$conf_email'";
   $result = mysqli_query($con, $select_query);
@@ -11,6 +13,9 @@ if (isset($_SESSION["user_email"])) {
   if ($rows_count > 0) {
     header('location:alreadyDonor.php');
   }
+}else{
+  // when user is not logged in you cant register a donor so redirecting to login page
+  header('location:regform_login_redirect.php');
 }
 
 
