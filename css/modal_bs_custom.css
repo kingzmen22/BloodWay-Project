@@ -5,6 +5,18 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
+:root {
+  --container-redir-bg: whitesmoke;
+  --content-redir-bg: white;
+  --bt-icon-color: black;
+}
+
+.dark-theme {
+  --container-redir-bg: rgb(35, 36, 53);
+  --content-redir-bg: #292a40;
+  --bt-icon-color: white;
+}
+
 .container-modal {
   height: auto;
   width: 100%;
@@ -85,6 +97,8 @@
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
+  background-color: var(--content-redir-bg);
+  color: var(--bt-icon-color);
 }
 .modal-header .close {
   margin-top: -2px;
@@ -96,6 +110,8 @@
 .modal-body {
   position: relative;
   padding: 15px;
+  background-color: var(--container-redir-bg);
+  color: var(--bt-icon-color);
 }
 .modal-footer {
   padding: 15px;

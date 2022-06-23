@@ -54,171 +54,13 @@ if (isset($_SESSION['donor_name'])) {
     <title>BloodWay Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/alreadyDonor.css" />
     <link rel="stylesheet" href="../css/modal_bs_custom.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<style>
-    :root {
-        --container-redir-bg: whitesmoke;
-        --content-redir-bg: white;
-    }
-
-    .dark-theme {
-        --container-redir-bg: rgb(35, 36, 53);
-        --content-redir-bg: whitesmoke;
-    }
-
-    .container-redir {
-        width: 100%;
-        background-color: var(--container-redir-bg);
-
-    }
-
-    .card-redir {
-        padding: 10px;
-    }
-
-    .head-redir {
-        text-align: center;
-        background-color: #33b5e5;
-        padding-top: 3px;
-        padding-bottom: 3px;
-        color: white;
-        border-radius: 4px;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
-
-    .content-redir {
-        background-color: var(--content-redir-bg);
-        padding-top: 10px;
-        padding-bottom: 40px;
-        color: black;
-        border-radius: 4px;
-        margin-bottom: 21px;
-    }
-
-    .h3-body-redir {
-        margin-left: 120px;
-        margin-right: 20px;
-        margin-top: 15px;
-        background-color: whitesmoke;
-        padding: 30px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        flex-flow: wrap;
-    }
-
-    .h3-redir {
-        font-weight: 500;
-        font-size: medium;
-        display: block ruby;
-    }
-
-    .p-details {
-        font-weight: 300;
-        font-size: medium
-    }
-
-    .butn-redir1 {
-        border: none;
-        padding: 6px;
-        border-radius: 4px;
-        background-color: #00C851;
-        font-weight: 600;
-        color: white;
-        margin-right: 15px;
-        width: 100%;
-    }
-
-    .butn-redir2 {
-        border: none;
-        padding: 6px;
-        border-radius: 4px;
-        background-color: #ff4444;
-        font-weight: 600;
-        color: white;
-        margin-left: 15px;
-        width: 100%;
-    }
-
-    .button-center-redir {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .butn-a-redir:hover {
-        background-color: var(--container-redir-bg);
-    }
-
-    .butn-redir1:hover {
-        font-weight: 600;
-        background-color: #007E33;
-    }
-
-    .butn-redir2:hover {
-        font-weight: 600;
-        background-color: #CC0000;
-    }
-
-    .bt {
-        display: flex;
-        float: left;
-        margin-left: 20px;
-        margin-bottom: 20px;
-        margin-top: 35px;
-
-    }
-
-    .h3-body1-redir {
-        display: inline-block;
-        width: 30%;
-        line-height: 2;
-    }
-
-    @media screen and (max-width:850px) {
-        .h3-body1-redir {
-            width: 100%;
-            margin: 5px;
-
-        }
-
-        .bt {
-            float: none;
-            justify-content: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-        .h3-body-redir {
-            margin-left: 30px;
-            margin-right: 30px;
-            margin-top: 15px;
-            background-color: whitesmoke;
-            padding: 30px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            flex-flow: wrap;
-
-        }
-
-        .content-redir {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .button-center-redir {
-            margin-bottom: 10px;
-        }
-    }
-</style>
 
 <body>
 
@@ -247,6 +89,8 @@ if (isset($_SESSION['donor_name'])) {
             </div>
         </div>
     </div>
+
+    <!-- Donor detals card -->
 
     <div class="container-redir">
         <div class="card-redir">
@@ -352,7 +196,7 @@ if (isset($_SESSION['donor_name'])) {
             </div>
             <div class="button-center-redir">
                 <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-pencil-square"></i> Edit</button></a>
-                <a href="user_signup.php" class="butn-a-redir"> <button class="butn-redir2"><i class="bi bi-trash3"></i> Delete</button></a>
+                <a href="./common_user_func/delete_Donor_Details.php" class="butn-a-redir"> <button class="butn-redir2"><i class="bi bi-trash3"></i> Delete</button></a>
             </div>
         </div>
     </div>
