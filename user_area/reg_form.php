@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include('../includes/connect.php');
 $error = "";
 if (isset($_SESSION["user_email"])) {
@@ -63,12 +62,16 @@ if (isset($_POST['donor_reg'])) {
   $select_query = "Select * from donor_details where  donor_email='$donor_email'";
   $result = mysqli_query($con, $select_query);
   $rows_count = mysqli_num_rows($result);
+
+ 
+ 
   if ($rows_count > 0) {
     $error = "Donor with same email id already exist!";
     // session variables created
     $fetch = $result->fetch_assoc();
-    $donor_name = $fetch['donor_name'];
-    $_SESSION['donor_name'] = $donor_name;
+    $donor_name1 = $fetch['donor_name'];
+    $_SESSION['donorname'] = $donor_name1;
+ 
   } else {
     // sanitzing data
     $donor_name = $con->real_escape_string($donor_name);
