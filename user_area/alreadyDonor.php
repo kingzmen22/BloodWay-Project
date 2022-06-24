@@ -56,12 +56,12 @@ if (isset($_SESSION['donor_name'])) {
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/alreadyDonor.css" />
     <link rel="stylesheet" href="../css/modal_bs_custom.css" />
+    <link rel="stylesheet" href="../css/popup_modal.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-
-
 <body>
 
     <!-- navbar -->
@@ -180,7 +180,7 @@ if (isset($_SESSION['donor_name'])) {
 
                         </h3>
                         <h3 class="h3-redir">
-                            District/Zone:
+                            Category:
                             <p class="p-details">
                                 <?php
                                 echo $_SESSION['donor_zone'];
@@ -190,17 +190,20 @@ if (isset($_SESSION['donor_name'])) {
                         </h3>
                     </div>
 
-
                 </div>
 
             </div>
             <div class="button-center-redir">
                 <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-pencil-square"></i> Edit</button></a>
-                <a href="./common_user_func/delete_Donor_Details.php" class="butn-a-redir"> <button class="butn-redir2"><i class="bi bi-trash3"></i> Delete</button></a>
+                <a href="#deleteModal" class="trigger-btn butn-a-redir" data-toggle="modal"> <button class="butn-redir2"><i class="bi bi-trash3"></i> Delete</button></a>
             </div>
         </div>
     </div>
 
+    <!-- delete modal -->
+    <?php
+    include('common_user_func/delete_conf_modal.php');
+    ?>
 
 
     <!-- footer -->
@@ -214,7 +217,6 @@ if (isset($_SESSION['donor_name'])) {
 
 <script>
     $(document).ready(function() {
-        // Show the Modal on load
         $("#myModal").modal("show");
     });
 </script>
