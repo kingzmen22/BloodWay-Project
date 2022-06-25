@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $donor_email = test_input($_SESSION['user_email']);
   $donor_dob = test_input($_POST['donor_dob']);
   $donor_age = $age;
-  // $donor_age = test_input($_POST['donor_age']);
   $donor_mobnum = test_input($_POST['donor_mobnum']);
   $donor_zone = test_input($_POST['donor_zone']);
   $donor_bgrp = test_input($_POST['donor_bgrp']);
@@ -168,7 +167,6 @@ function getAge($dob){
     }
   </style>
 
-
 </head>
 <?php
 if ($error != null) {
@@ -212,11 +210,6 @@ if ($error != null) {
           <div class="input-box-reg">
             <span class="details-reg">Date of Birth</span>
             <input type="date" placeholder="Enter your DOB" name="donor_dob" required>
-          </div>
-
-          <div class="input-box-reg">
-            <span class="details-reg">Age</span>
-            <input type="number" placeholder="Your age will be displayed" name="donor_age" readonly required>
           </div>
 
           <div class="input-box-reg">
@@ -324,6 +317,5 @@ if ($error != null) {
     icon.src = "../images/sun.png";
   }
 </script>
-
 
 <script src="js/script.js"></script>
