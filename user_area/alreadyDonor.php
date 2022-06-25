@@ -15,7 +15,7 @@ $donor_age = $fetch['donor_age'];
 $donor_mobNum = $fetch['donor_mobNum'];
 $donor_gender = $fetch['donor_gender'];
 $donor_weight = $fetch['donor_weight'];
-// $donor_group = $fetch['donor_bgrp'];
+$donor_category = $fetch['donor_category'];
 
 
 $_SESSION['donor_name'] = $donor_name;
@@ -26,7 +26,7 @@ $_SESSION['donor_age'] = $donor_age;
 $_SESSION['donor_mobNum'] = $donor_mobNum;
 $_SESSION['donor_gender'] = $donor_gender;
 $_SESSION['donor_weight'] = $donor_weight;
-// $_SESSION['donor_bgrp'] = $donor_group;
+$_SESSION['donor_category'] = $donor_category;
 
 
 if (isset($_SESSION['donor_name'])) {
@@ -38,7 +38,7 @@ if (isset($_SESSION['donor_name'])) {
     $_SESSION['donor_mobNum'];
     $_SESSION['donor_gender'];
     $_SESSION['donor_weight'];
-    // $_SESSION['donor_bgrp'];
+    $_SESSION['donor_category'];
 }
 
 ?>
@@ -183,7 +183,7 @@ if (isset($_SESSION['donor_name'])) {
                             Category:
                             <p class="p-details">
                                 <?php
-                                echo $_SESSION['donor_zone'];
+                                echo $_SESSION['donor_category'];
                                 ?>
                             </p>
 

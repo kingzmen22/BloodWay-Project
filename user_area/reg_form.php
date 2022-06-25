@@ -1,7 +1,10 @@
 <?php
 session_start();
 include('../includes/connect.php');
+$donor_name = $donor_email = $donor_dob = $donor_age = $donor_mobnum = $donor_zone = "";
+$donor_bgrp = $donor_weight = $donor_gender = $donor_category = "";
 $error = "";
+$flag = true;
 if (isset($_SESSION["user_email"])) {
   // if the user register a donor one time user cant register another donor. 
   //so redirected to a error showing page
@@ -18,77 +21,76 @@ if (isset($_SESSION["user_email"])) {
 }
 
 
-if (isset($_POST['donor_reg'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $donor_name = $_POST['donor_name'];
-  $donor_email = $_SESSION['user_email'];
-  $donor_dob = $_POST['donor_dob'];
-  $donor_age = $_POST['donor_age'];
-  $donor_mobnum = $_POST['donor_mobnum'];
-  $donor_zone = $_POST['donor_zone'];
-  $donor_bgrp = $_POST['donor_bgrp'];
-  $donor_weight = $_POST['donor_weight'];
-  $donor_gender = $_POST['donor_gender'];
+  $donor_name = test_input($_POST['donor_name']);
+  $donor_email = test_input($_SESSION['user_email']);
+  $donor_dob = test_input($_POST['donor_dob']);
+  $donor_age = test_input($_POST['donor_age']);
+  $donor_mobnum = test_input($_POST['donor_mobnum']);
+  $donor_zone = test_input($_POST['donor_zone']);
+  $donor_bgrp = test_input($_POST['donor_bgrp']);
+  $donor_weight = test_input($_POST['donor_weight']);
+  $donor_gender = test_input($_POST['donor_gender']);
+  $donor_category = test_input($_POST['donor_category']);
 
   // input validation
-
+  $donor_mobnu = strlen($_POST["donor_mobnum"]);
+  $length = strlen($donor_mobnu);
   // name error
-  if (!preg_match("/^[a-zA-z]*$/", $donor_name)) {
+  if (!preg_match("/^[a-zA-Z-' ]*$/", $donor_name)) {
+    $flag = false;
     $error = "Only alphabets and whitespace are allowed.";
-  }
-
-  // mobnum error
-  if (!preg_match("/^[0-9]*$/", $donor_mobnum)) {
-    $error = "Only numeric value is allowed.";
-  }
-
-  // email error
-  $pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^";
-  if (!preg_match($pattern, $donor_email)) {
-    $error = "Email is not valid.";
-  }
-
-  // mob number length error
-  $donor_mobnum = strlen($_POST["donor_mobnum"]);
-  $length = strlen($donor_mobnum);
-
-  if ($length < 10 && $length > 10) {
-    $error = "Mobile number must have 10 digits.";
-  }
-
-
-  //select query
-
-  $select_query = "Select * from donor_details where  donor_email='$donor_email'";
-  $result = mysqli_query($con, $select_query);
-  $rows_count = mysqli_num_rows($result);
-
- 
- 
-  if ($rows_count > 0) {
-    $error = "Donor with same email id already exist!";
-    // session variables created
-    $fetch = $result->fetch_assoc();
-    $donor_name1 = $fetch['donor_name'];
-    $_SESSION['donorname'] = $donor_name1;
- 
+  } else if (!preg_match('/^[0-9]{10}+$/', $donor_mobnum)) {
+    $flag = false;
+    $error = "Invalid mobile number.";
   } else {
-    // sanitzing data
-    $donor_name = $con->real_escape_string($donor_name);
-    $donor_email = $con->real_escape_string($donor_email);
-    $donor_dob = $con->real_escape_string($donor_dob);
-    $donor_age = $con->real_escape_string($donor_age);
-    $donor_zone = $con->real_escape_string($donor_zone);
-    $donor_bgrp = $con->real_escape_string($donor_bgrp);
-    $donor_weight = $con->real_escape_string($donor_weight);
-    $donor_gender = $con->real_escape_string($donor_gender);
-
-    //insert query
-
-    $insert_query = "insert into donor_details (donor_name,donor_email,donor_dob,donor_age,donor_mobNum,donor_zone,donor_bgrp,donor_gender,donor_weight) values ('$donor_name','$donor_email','$donor_dob','$donor_age','$donor_mobnum','$donor_zone','$donor_bgrp','$donor_gender','$donor_weight')";
-    $sql_execute = mysqli_query($con, $insert_query);
-    echo "<script>alert('Successfully Registered!')</script>";
+    $flag = true;
   }
+
+
+
+  if ($flag) {
+    //select query
+
+    $select_query = "Select * from donor_details where  donor_email='$donor_email'";
+    $result = mysqli_query($con, $select_query);
+    $rows_count = mysqli_num_rows($result);
+
+
+    if ($rows_count > 0) {
+      $error = "Donor with same email id already exist!";
+      // session variables created
+      $fetch = $result->fetch_assoc();
+      $donor_name1 = $fetch['donor_name'];
+      $_SESSION['donorname'] = $donor_name1;
+    } else {
+      // sanitzing data
+      $donor_name = $con->real_escape_string($donor_name);
+      $donor_email = $con->real_escape_string($donor_email);
+      $donor_dob = $con->real_escape_string($donor_dob);
+      $donor_age = $con->real_escape_string($donor_age);
+      $donor_zone = $con->real_escape_string($donor_zone);
+      $donor_bgrp = $con->real_escape_string($donor_bgrp);
+      $donor_weight = $con->real_escape_string($donor_weight);
+      $donor_gender = $con->real_escape_string($donor_gender);
+      $donor_category = $con->real_escape_string($donor_category);
+      //insert query
+
+      $insert_query = "insert into donor_details (donor_name,donor_email,donor_dob,donor_age,donor_mobNum,donor_zone,donor_bgrp,donor_gender,donor_weight,donor_category) values ('$donor_name','$donor_email','$donor_dob','$donor_age','$donor_mobnum','$donor_zone','$donor_bgrp','$donor_gender','$donor_weight','$donor_category')";
+      $sql_execute = mysqli_query($con, $insert_query);
+      echo "<script>alert('Successfully Registered!')</script>";
+      header('location:reg_form.php');
+    }
+  }
+}
+
+function test_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 ?>
 
@@ -170,7 +172,7 @@ if ($error != null) {
       <center><?php echo $error ?></center>
     </div>
     <div class="content-reg">
-      <form action="#" method="POST">
+      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <div class="user-details-reg">
           <div class="input-box-reg">
             <span class="details-reg">Full Name</span>
@@ -178,30 +180,32 @@ if ($error != null) {
           </div>
 
           <div class="input-box-reg">
+            <span class="details-reg">Phone Number</span>
+            <input type="text" placeholder="Enter your number" name="donor_mobnum"  required>
+          </div>
+
+          <div class="input-box-reg">
             <span class="details-reg">Date of Birth</span>
-            <input type="date" placeholder="Enter your DOB" name="donor_dob" required>
+            <input type="date" placeholder="Enter your DOB" name="donor_dob"  required>
           </div>
 
           <div class="input-box-reg">
             <span class="details-reg">Age</span>
-            <input type="number" min="18" max="60" placeholder="Enter your Age" name="donor_age" required>
+            <input type="number" min="18" max="60" placeholder="Enter your Age" name="donor_age"  required>
           </div>
-          <div class="input-box-reg">
-            <span class="details-reg">Phone Number</span>
-            <input type="text" placeholder="Enter your number" name="donor_mobnum" required>
-          </div>
+
           <div class="input-box-reg">
             <span class="details-reg">District/Zone</span>
             <select name="donor_zone" id="zone-dist" name="donor_zone" required>
-              <option value="not selcted">Select</option>
+              <option value="" selected>Select</option>
               <option value="Ernakulam">Ernakulam</option>
               <option value="Thrissur">Thrissur</option>
             </select>
           </div>
           <div class="input-box-reg">
             <span class="details-reg">Blood Group</span>
-            <select name="donor_bgrp" id="blood-grp" required>
-              <option value="not selcted">Select</option>
+            <select name="donor_bgrp" id="blood-grp"  required>
+              <option value="" selected>Select</option>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
               <option value="AB+">AB+</option>
@@ -214,20 +218,33 @@ if ($error != null) {
             </select>
           </div>
 
-          <div class="input-box-reg">
-            <span class="details-reg">Weight</span>
-            <input type="number" min="55" placeholder="Enter your weight" name="donor_weight" required>
-          </div>
 
           <div class="input-box-reg">
-            <span class="details-reg">District/Zone</span>
-            <select name="donor_gender" id="zone-dist" name="donor_zone" required>
-              <option value="not selcted">Select</option>
+            <span class="details-reg">Gender</span>
+            <select name="donor_gender" id="zone-dist" name="donor_zone"  required>
+              <option value="" selected>Select</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
           </div>
+
+          <div class="input-box-reg">
+            <span class="details-reg">Category</span>
+            <select name="donor_category" id="don_cat"  required>
+              <option value="" selected>Select</option>
+              <option value="Nss Volunteer">Nss Volunteer</option>
+              <option value="Student">Student</option>
+              <option value="College Staff">College Staff</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="input-box-reg">
+            <span class="details-reg">Weight</span>
+            <input type="number" min="55" placeholder="Enter your weight" name="donor_weight"  required>
+          </div>
+
         </div>
 
         <div class="button-reg">
