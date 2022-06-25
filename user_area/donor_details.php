@@ -1,5 +1,9 @@
 <?php
 include('external_php/donor_session_create.php');
+
+if (!isset($_SESSION["donor_name"])) {
+    header('location:donor_details_redirect.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,11 +18,13 @@ include('external_php/donor_session_create.php');
     <link rel="stylesheet" href="../css/alreadyDonor.css" />
     <link rel="stylesheet" href="../css/modal_bs_custom.css" />
     <link rel="stylesheet" href="../css/popup_modal.css" />
+    <link rel="stylesheet" href="../css/donation_related_details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
     <!-- navbar -->
@@ -26,26 +32,6 @@ include('external_php/donor_session_create.php');
     include('common_user_func/user_navbar.php');
     ?>
 
-    <!-- modal for warning -->
-
-    <div class="container-modal">
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p class="modal-title">Congratulations! You're already a donor</p>
-                    </div>
-                    <div class="modal-body">
-                        <p>You can only register one donor in an account.<br>Registered donor's details are given here.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <!-- Donor detals card -->
 
@@ -151,7 +137,7 @@ include('external_php/donor_session_create.php');
 
             </div>
             <div class="button-center-redir">
-                <a href="donor_details.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-pencil-square"></i> Edit</button></a>
+                <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-pencil-square"></i> Edit</button></a>
                 <a href="#deleteModal" class="trigger-btn butn-a-redir" data-toggle="modal"> <button class="butn-redir2"><i class="bi bi-trash3"></i> Delete</button></a>
             </div>
         </div>
@@ -162,21 +148,49 @@ include('external_php/donor_session_create.php');
     include('common_user_func/delete_conf_modal.php');
     ?>
 
+    <!-- Donoation related detals -->
+    <div class="container-don-rel">
+        <div class="card-don-rel">
+            <h3 class="head-don-rel">Donation Related Details</h3>
+            <div class="content-don-rel">
+                <p class="sub-heading-don-rel">Update Your Latest Donation Details</p>
+                <div class="h3-body-don-rel">
+                    <form action="" method="POST">
+                        <div class="input-box-reg">
+                            <span class="details-reg">Hospital Name</span>
+                            <input type="text" placeholder="Enter hospital name" name="donated-hospital" required>
+                        </div>
+
+                        <div class="input-box-reg">
+                            <span class="details-reg">Donated Date</span>
+                            <input type="date" placeholder="Choose date" name="donated-date" required>
+                        </div>
+
+                        <div class="input-box-reg">
+                            <span class="details-reg">Certificate(Optional)</span>
+                            <input type="file" class="file-input" placeholder="Browse image" name="donated-certificate">
+                        </div>
+
+                        <div class="button-center-don-rel">
+                            <a href="user_login.php" class="butn-a-don-rel"> <button class="butn-don-rel1"><i class="bi bi-pencil-square"></i> Update</button></a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 
     <!-- footer -->
-
+    <!-- 
     <?php
     include('common_user_func/user_footer.php');
-    ?>
+    ?> -->
 
 
 </body>
 
-<script>
-    $(document).ready(function() {
-        $("#myModal").modal("show");
-    });
-</script>
 
 <!-- dark theme js -->
 <script>
@@ -214,6 +228,5 @@ include('external_php/donor_session_create.php');
         icon.src = "../images/sun.png";
     }
 </script>
-
 
 <script src="js/script.js"></script>

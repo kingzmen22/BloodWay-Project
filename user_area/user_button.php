@@ -20,7 +20,7 @@
 
         <div class="dropdown-content1" style="right:0;">
 
-            <a href="#">Donor Details</a>
+            <a href="donor_details.php">Donor Details</a>
             <a href="#">My Profile</a>
             <a href="#">Settings</a>
             <a href="user_logout.php">Logout</a>

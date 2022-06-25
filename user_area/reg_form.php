@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = "Weight must be above 55kg";
   } else if ($donor_age < 18 || $donor_age > 60) {
     $flag = false;
-    $error = "Age must be between 18 and 60";
+    $error = "Age must be between 18 and 60.";
   } else {
     $flag = true;
   }
@@ -74,10 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($rows_count > 0) {
       $error = "Donor with same email id already exist!";
-      // session variables created
-      $fetch = $result->fetch_assoc();
-      $donor_name1 = $fetch['donor_name'];
-      $_SESSION['donorname'] = $donor_name1;
     } else {
       // sanitzing data
       $donor_name = $con->real_escape_string($donor_name);

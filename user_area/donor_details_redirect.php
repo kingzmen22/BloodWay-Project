@@ -3,8 +3,6 @@ session_start();
 include('../includes/connect.php');
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -30,18 +28,13 @@ include('../includes/connect.php');
 
     <div class="container-redir">
         <div class="card-redir">
-            <h2 class="head-redir">Login to Register !</h2>
-            <h3 class="content-redir">You have to login to your account to register a donor.<br>If you are new here, Signup to continue</h3>
+            <h2 class="head-redir">Donor records not found!</h2>
+            <h3 class="content-redir">You have to register again to be a donor.</h3>
             <div class="button-center-redir">
-                <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-box-arrow-in-right"> </i> Click to login</button></a>
-                <a href="user_signup.php" class="butn-a-redir"> <button class="butn-redir2"><i class="bi bi-box-arrow-in-right"> </i> Click to signup</button></a>
-
+                <a href="reg_form.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-box-arrow-in-right"> </i> Click to Register</button></a>
             </div>
-
         </div>
     </div>
-
-
 
     <!-- footer -->
 
@@ -51,7 +44,6 @@ include('../includes/connect.php');
 
 
 </body>
-
 
 <!-- dark theme js -->
 <script>
