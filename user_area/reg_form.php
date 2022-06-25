@@ -20,19 +20,28 @@ if (isset($_SESSION["user_email"])) {
   header('location:regform_login_redirect.php');
 }
 
+if(isset($_POST['donor_dob'])){
+  $donor_dob = test_input($_POST['donor_dob']);
+  $age = getAge($donor_dob);
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $donor_name = test_input($_POST['donor_name']);
   $donor_email = test_input($_SESSION['user_email']);
   $donor_dob = test_input($_POST['donor_dob']);
-  $donor_age = test_input($_POST['donor_age']);
+  $donor_age = $age;
+  // $donor_age = test_input($_POST['donor_age']);
   $donor_mobnum = test_input($_POST['donor_mobnum']);
   $donor_zone = test_input($_POST['donor_zone']);
   $donor_bgrp = test_input($_POST['donor_bgrp']);
   $donor_weight = test_input($_POST['donor_weight']);
   $donor_gender = test_input($_POST['donor_gender']);
   $donor_category = test_input($_POST['donor_category']);
+
+
+
 
   // input validation
   $donor_mobnu = strlen($_POST["donor_mobnum"]);
@@ -44,6 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else if (!preg_match('/^[0-9]{10}+$/', $donor_mobnum)) {
     $flag = false;
     $error = "Invalid mobile number.";
+  } else if ($donor_weight < 55) {
+    $flag = false;
+    $error = "Weight must be above 55kg";
+  } else if ($donor_age < 18 || $donor_age > 60) {
+    $flag = false;
+    $error = "Age must be between 18 and 60";
   } else {
     $flag = true;
   }
@@ -91,6 +106,16 @@ function test_input($data)
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
+}
+
+function getAge($dob){
+  $bday = new DateTime($dob);
+  $today = new DateTime(date('m.d.y'));
+  if($bday>$today){
+    return 0;
+  }
+  $diff = $today->diff($bday);
+  return $diff->y;
 }
 ?>
 
@@ -181,17 +206,17 @@ if ($error != null) {
 
           <div class="input-box-reg">
             <span class="details-reg">Phone Number</span>
-            <input type="text" placeholder="Enter your number" name="donor_mobnum"  required>
+            <input type="text" placeholder="Enter your number" name="donor_mobnum" required>
           </div>
 
           <div class="input-box-reg">
             <span class="details-reg">Date of Birth</span>
-            <input type="date" placeholder="Enter your DOB" name="donor_dob"  required>
+            <input type="date" placeholder="Enter your DOB" name="donor_dob" required>
           </div>
 
           <div class="input-box-reg">
             <span class="details-reg">Age</span>
-            <input type="number" min="18" max="60" placeholder="Enter your Age" name="donor_age"  required>
+            <input type="number" placeholder="Your age will be displayed" name="donor_age" readonly required>
           </div>
 
           <div class="input-box-reg">
@@ -204,7 +229,7 @@ if ($error != null) {
           </div>
           <div class="input-box-reg">
             <span class="details-reg">Blood Group</span>
-            <select name="donor_bgrp" id="blood-grp"  required>
+            <select name="donor_bgrp" id="blood-grp" required>
               <option value="" selected>Select</option>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
@@ -221,7 +246,7 @@ if ($error != null) {
 
           <div class="input-box-reg">
             <span class="details-reg">Gender</span>
-            <select name="donor_gender" id="zone-dist" name="donor_zone"  required>
+            <select name="donor_gender" id="zone-dist" name="donor_zone" required>
               <option value="" selected>Select</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -231,7 +256,7 @@ if ($error != null) {
 
           <div class="input-box-reg">
             <span class="details-reg">Category</span>
-            <select name="donor_category" id="don_cat"  required>
+            <select name="donor_category" id="don_cat" required>
               <option value="" selected>Select</option>
               <option value="Nss Volunteer">Nss Volunteer</option>
               <option value="Student">Student</option>
@@ -242,7 +267,7 @@ if ($error != null) {
 
           <div class="input-box-reg">
             <span class="details-reg">Weight</span>
-            <input type="number" min="55" placeholder="Enter your weight" name="donor_weight"  required>
+            <input type="number" placeholder="Enter your weight" name="donor_weight" required>
           </div>
 
         </div>
