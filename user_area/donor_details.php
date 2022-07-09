@@ -1,6 +1,10 @@
 <?php
 include('external_php/donor_session_create.php');
 
+if (!isset($_SESSION["user_email"])) {
+    header('location:common_user_func/error404.php');
+}
+
 if (!isset($_SESSION["donor_name"])) {
     header('location:donor_details_redirect.php');
 }
@@ -137,7 +141,7 @@ if (!isset($_SESSION["donor_name"])) {
 
             </div>
             <div class="button-center-redir">
-                <a href="user_login.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-pencil-square"></i> Edit</button></a>
+                <a href="./common_user_func/edit_donor_details.php" class="butn-a-redir"> <button class="butn-redir1"><i class="bi bi-pencil-square"></i> Edit</button></a>
                 <a href="#deleteModal" class="trigger-btn butn-a-redir" data-toggle="modal"> <button class="butn-redir2"><i class="bi bi-trash3"></i> Delete</button></a>
             </div>
         </div>
@@ -155,7 +159,7 @@ if (!isset($_SESSION["donor_name"])) {
             <div class="content-don-rel">
                 <p class="sub-heading-don-rel">Update Your Latest Donation Details</p>
                 <div class="h3-body-don-rel">
-                    <form action="" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         <div class="input-box-reg">
                             <span class="details-reg">Hospital Name</span>
                             <input type="text" placeholder="Enter hospital name" name="donated-hospital" required>
@@ -171,6 +175,7 @@ if (!isset($_SESSION["donor_name"])) {
                             <input type="file" class="file-input" placeholder="Browse image" name="donated-certificate">
                         </div>
 
+                 
                         <div class="button-center-don-rel">
                             <a href="user_login.php" class="butn-a-don-rel"> <button class="butn-don-rel1"><i class="bi bi-pencil-square"></i> Update</button></a>
                         </div>

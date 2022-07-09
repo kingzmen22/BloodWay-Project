@@ -32,8 +32,8 @@ include('./includes/connect.php');
                 if (!isset($_SESSION['user_name'])) {
                     echo  "<li><a href='user_area/user_login.php'>Login</a></li>";
                 } else {
+                    // logout button
                     include('user_button_home.php');
-                    // echo  "<li><a href='user_area/user_logout.php'>Logout</a></li>";
                 }
                 ?>
             </ul>

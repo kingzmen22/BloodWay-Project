@@ -25,7 +25,6 @@
             
             <a href="./user_area/donor_details.php">Donor Details</a>
             <a href="#">My Profile</a>
-            <a href="#">Settings</a>
             <a href="./user_area/user_logout.php">Logout</a>
 
         </div>
