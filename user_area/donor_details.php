@@ -1,4 +1,5 @@
 <?php
+include('../includes/connect.php');
 include('external_php/donor_session_create.php');
 
 if (!isset($_SESSION["user_email"])) {
@@ -7,6 +8,38 @@ if (!isset($_SESSION["user_email"])) {
 
 if (!isset($_SESSION["donor_name"])) {
     header('location:donor_details_redirect.php');
+}
+
+if (isset($_SESSION["user_email"])) {
+    $conf_email = $_SESSION['user_email'];
+    $select_query = "Select * from donation_details where  dona_email='$conf_email'";
+    $result = mysqli_query($con, $select_query);
+    $rows_count = mysqli_num_rows($result);
+}
+if($rows_count>0){
+
+}
+
+if(isset($_POST['donated_upadte'])){
+    $donated_hospital = test_input($_POST['donated_hospital']);
+    $donated_date = test_input($_SESSION['donated_date']);
+    $donated_certificate = test_input($_POST['donated_certificate']);
+
+    $donated_hospital = $con->real_escape_string($donated_hospital);
+    $donated_date = $con->real_escape_string($donated_date);
+    $donated_certificate = $con->real_escape_string($donated_certificate);
+
+    $insert_query = "insert into donor_details (dona_email,donated_hospital,donated_date,donated_certificate) values ('$conf_email','$donated_hospital','$donated_date','$donated_certificate')";
+      $sql_execute = mysqli_query($con, $insert_query);
+}
+
+
+function test_input($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 ?>
 
@@ -162,22 +195,22 @@ if (!isset($_SESSION["donor_name"])) {
                     <form action="" method="POST" enctype="multipart/form-data">
                         <div class="input-box-reg">
                             <span class="details-reg">Hospital Name</span>
-                            <input type="text" placeholder="Enter hospital name" name="donated-hospital" required>
+                            <input type="text" placeholder="Enter hospital name" name="donated_hospital" required>
                         </div>
 
                         <div class="input-box-reg">
                             <span class="details-reg">Donated Date</span>
-                            <input type="date" placeholder="Choose date" name="donated-date" required>
+                            <input type="date" placeholder="Choose date" name="donated_date" required>
                         </div>
 
                         <div class="input-box-reg">
                             <span class="details-reg">Certificate(Optional)</span>
-                            <input type="file" class="file-input" placeholder="Browse image" name="donated-certificate">
+                            <input type="file" class="file-input" placeholder="Browse image" name="donated_certificate">
                         </div>
 
                  
                         <div class="button-center-don-rel">
-                            <a href="user_login.php" class="butn-a-don-rel"> <button class="butn-don-rel1"><i class="bi bi-pencil-square"></i> Update</button></a>
+                            <a href="user_login.php" class="butn-a-don-rel"> <button class="butn-don-rel1" name="donated_upadte"><i class="bi bi-pencil-square"></i> Update</button></a>
                         </div>
                     </form>
                 </div>

@@ -86,11 +86,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $donor_category = $con->real_escape_string($donor_category);
       //insert query
 
-      $update_query = "update donor_details set donor_name='$donor_name', donor_dob='$donor_dob', donor_age='$donor_age', donor_mobNum='$donor_mobnum', donor_zone='$donor_zone', donor_bgrp='$donor_bgrp', donor_gender='$donor_gender', donor_weight='$donor_weight', donor_category='$donor_category' where  donor_email=' $conf_email'";
+      $update_query = "UPDATE donor_details SET donor_name='$donor_name', donor_dob='$donor_dob', donor_age='$donor_age', donor_mobNum='$donor_mobnum', donor_zone='$donor_zone', donor_bgrp='$donor_bgrp', donor_gender='$donor_gender', donor_weight='$donor_weight', donor_category='$donor_category' WHERE  donor_email ='$conf_email'";
       $sql_execute = mysqli_query($con, $update_query);
-      echo "<script>alert('Successfully Updated!')</script>";
-      // header('location:reg_form.php');
+      if($sql_execute){
+        header('location:../donor_details.php');
     }
+      }
+      
+      
   }
 }
 
