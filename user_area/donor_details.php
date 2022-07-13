@@ -144,7 +144,7 @@ function test_input($data)
         font-weight: 600;
         color: white;
         margin-right: 0px;
-        width: 50%;
+        width: 60%;
     }
 
     .delete_toggle {
@@ -372,10 +372,10 @@ function test_input($data)
                                 <tr>
                                     <td><?php echo $fetchData['dona_date']; ?></td>
                                     <td> <?php echo $fetchData['dona_hospName']; ?></td>
-                                    <td><a href='' class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='donated_update'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
+                                    <td><a href='common_user_func\certif_show.php?certif=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='donated_update'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
                                     <td>
                                         <a href='common_user_func\edit_donation_details.php?edit=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 edit_toggle' name='donated_update'><i class='bi bi-pencil-square'></i></button></a>
-                                        <a href='common_user_func\delete_Donation_Details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_update'><i class='bi bi-trash3'></i></button></a>
+                                        <a href='common_user_func\delete_donation_details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_update'><i class='bi bi-trash3'></i></button></a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

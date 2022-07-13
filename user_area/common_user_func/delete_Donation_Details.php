@@ -1,28 +1,13 @@
 <?php
 session_start();
+include('../../includes/connect.php');
 
-// code to connect to the db
-$con=mysqli_connect('localhost','root','','bloodwaybase');
-if(!$con){
-    die(mysqli_error(new $con));
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $conf_email = $_SESSION['user_email'];
+    $delete_query = "DELETE from donation_details WHERE dona_id='$id' and dona_email='$conf_email'";
+    $sql_exec = mysqli_query($con, $delete_query);
+    if($sql_exec){
+        header('location:../donor_details.php');
+    }
 }
-
-// delet query
-$dona_email = $_SESSION['user_email'];
-
-$delete_query = "DELETE from donation_details where dona_email='$dona_email' and dona_id=$dona_id";
-$result = mysqli_query($con,$delete_query);
-
-unset( $_SESSION['donor_name']);
-unset( $_SESSION['donor_zone']);
-unset( $_SESSION['donor_bgrp']);
-unset( $_SESSION['donor_dob']);
-unset( $_SESSION['donor_age']);
-unset( $_SESSION['donor_mobNum']);
-unset( $_SESSION['donor_gender']);
-unset( $_SESSION['donor_weight']);
-unset( $_SESSION['donor_category']);
-
-
-header('location:../donor_details_redirect.php')
-?>
