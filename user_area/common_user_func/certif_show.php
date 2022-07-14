@@ -5,10 +5,9 @@ if (isset($_GET['certif'])) {
     $select_query = "Select * from donation_details where  dona_id='$id'";
     $result = mysqli_query($con, $select_query);
     $rows_count = mysqli_num_rows($result);
-    $fetch=mysqli_fetch_assoc($result);
-    if($rows_count ==  1){
-        $certif_img=$fetch['dona_certif'];
-        echo $certif_img;
+    $fetch = mysqli_fetch_assoc($result);
+    if ($rows_count ==  1) {
+        $certif_img = $fetch['dona_certif'];
     }
 }
 ?>
@@ -17,48 +16,78 @@ if (isset($_GET['certif'])) {
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
-        /* Content of modal div is center aligned */
-        .modal {
-            text-align: center;
+        :root {
+            --dropdown-bg: #f9f9f9;
+            --dropdown-text: black;
+        }
+
+        .dark-theme {
+            --dropdown-bg: rgb(21, 32, 43);
+            --dropdown-text: white;
+        }
+
+        body {
+            padding: 70px;
+            margin: 0;
+            padding-top: 5px;
+            padding-bottom: 15px;
+            background-color: var(--dropdown-bg);
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            width: 100%;
+            height: auto;
+            
         }
     </style>
 </head>
 
 <body>
-    <img src="<?php echo $certif_img ?>" data-toggle="modal" data-target="#exampleModal">
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title w-100" id="exampleModalLabel">
-                        Certificate
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            ×
-                        </span>
-                    </button>
-                </div>
-                <!--Modal body with image-->
-                <div class="modal-body">
-                    <img src="<?php echo $certif_img ?>" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
-    </script>
+    <h3><i class="zz" id="icon"></i></h3>
+    <img src="../<?php echo $certif_img ?>">
 </body>
 
 </html>
+
+<script>
+    var icon = document.getElementById("icon");
+
+    icon.onclick = function() {
+        var SetTheme = document.body;
+
+        SetTheme.classList.toggle("dark-theme");
+
+        var theme;
+
+        if (SetTheme.classList.contains("dark-theme")) {
+            console.log("Dark mode");
+            theme = "DARK";
+        } else {
+            console.log("Light mode");
+            theme = "LIGHT";
+        }
+
+        localStorage.setItem("PageTheme", JSON.stringify(theme));
+
+        if (document.body.classList.contains("dark-theme")) {
+            icon.src = "../images/sun.png";
+        } else {
+            icon.src = "../images/moon.png";
+        }
+    };
+
+    let GetTheme = JSON.parse(localStorage.getItem("PageTheme"));
+    console.log(GetTheme);
+
+    if (GetTheme === "DARK") {
+        document.body.classList = "dark-theme";
+        icon.src = "../images/sun.png";
+    }
+</script>
+
+<script src="js/script.js"></script>
