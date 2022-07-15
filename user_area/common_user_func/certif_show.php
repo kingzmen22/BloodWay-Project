@@ -16,6 +16,7 @@ if (isset($_GET['certif'])) {
 <html>
 
 <head>
+    <title>Donoation Certificate</title>
     <style>
         :root {
             --dropdown-bg: #f9f9f9;
@@ -28,7 +29,7 @@ if (isset($_GET['certif'])) {
         }
 
         body {
-            padding: 70px;
+            padding: 200px;
             margin: 0;
             padding-top: 5px;
             padding-bottom: 15px;
@@ -42,7 +43,31 @@ if (isset($_GET['certif'])) {
             margin-top: 10px;
             width: 100%;
             height: auto;
-            
+
+        }
+
+        @media screen and (max-width: 1260px) {
+            body {
+                padding: 140px;
+                padding-top: 5px;
+                padding-bottom: 15px;
+            }
+
+            @media screen and (max-width: 990px) {
+                body {
+                    padding: 30px;
+                    padding-top: 5px;
+                    padding-bottom: 15px;
+                }
+            }
+
+            @media screen and (max-width: 540px) {
+                body {
+                    padding: 30px;
+                    padding-top: 100px;
+                    padding-bottom: 15px;
+                }
+            }
         }
     </style>
 </head>

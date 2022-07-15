@@ -43,6 +43,13 @@ if (isset($_GET['edit'])) {
             $update_query = "UPDATE donation_details SET dona_hospName='$donated_hospital',dona_date='$donated_date',dona_certif='$upload_img' WHERE dona_id='$id' ";
             $sql_execute = mysqli_query($con, $update_query);
             if ($sql_execute) {
+                $_SESSION['status']="Details updated successfully!";
+                $_SESSION['status-mode']="alert-success";
+                header('location:../donor_details.php');
+            }
+            else{
+                $_SESSION['status']="Something Went Wrong!";
+                $_SESSION['status-mode']="alert-danger";
                 header('location:../donor_details.php');
             }
         }

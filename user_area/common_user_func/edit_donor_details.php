@@ -88,12 +88,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       $update_query = "UPDATE donor_details SET donor_name='$donor_name', donor_dob='$donor_dob', donor_age='$donor_age', donor_mobNum='$donor_mobnum', donor_zone='$donor_zone', donor_bgrp='$donor_bgrp', donor_gender='$donor_gender', donor_weight='$donor_weight', donor_category='$donor_category' WHERE  donor_email ='$conf_email'";
       $sql_execute = mysqli_query($con, $update_query);
-      if($sql_execute){
+      if ($sql_execute) {
+        $_SESSION['status'] = "Details updated Successfully!";
+        $_SESSION['status-mode']="alert-success";
         header('location:../donor_details.php');
-    }
       }
-      
-      
+      else{
+        $_SESSION['status'] = "Something went wrong!";
+        $_SESSION['status-mode']="alert-danger";
+        header('location:../donor_details.php');
+      }
+    }
   }
 }
 

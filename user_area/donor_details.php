@@ -3,7 +3,6 @@ include('../includes/connect.php');
 include('external_php/donor_session_create.php');
 $sql_execute = null;
 $donated_hospital = $donated_date = $donated_certificate = $temp_donated_certificate = "";
-// require_once('./common_user_func/certif_show.php');
 if (!isset($_SESSION["user_email"])) {
     header('location:common_user_func/error404.php');
 }
@@ -39,7 +38,17 @@ if (isset($_POST['donated_update'])) {
         move_uploaded_file($imgtmpname, $upload_img);
         $insert_query = "insert into donation_details (dona_email,dona_hospName,dona_date,dona_certif) values ('$conf_email','$donated_hospital','$donated_date','$upload_img')";
         $sql_execute = mysqli_query($con, $insert_query);
+    }
+    if ($sql_execute) {
+        $_SESSION['status'] = "Details added successfully!";
+        $_SESSION['status-mode'] = "alert-success";
         header('location:donor_details.php');
+        exit(0);
+    } else {
+        $_SESSION['status'] = "Something went wrong!";
+        $_SESSION['status-mode'] = "alert-danger";
+        header('location:donor_details.php');
+        exit(0);
     }
 }
 
@@ -58,7 +67,7 @@ function test_input($data)
 <head>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <meta charset="utf-8" />
-    <title>BloodWay Home</title>
+    <title>Donor Details Section</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/alreadyDonor.css" />
@@ -69,6 +78,7 @@ function test_input($data)
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <style>
     :root {
@@ -81,12 +91,7 @@ function test_input($data)
         --dropdown-text: white;
     }
 
-    .alert-success {
-        color: #ffffff;
-        background-color: #00C851;
-        border-color: #00C851;
-    }
-
+    /* validation modal bootstrap */
     .alert {
         position: relative;
         padding: 15px 5px;
@@ -94,12 +99,38 @@ function test_input($data)
         text-align: center;
     }
 
-    .alert-dismissible .close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 2;
-        padding: 0.75rem 1.25rem;
+    .alert-success {
+        color: #0f5132;
+        background-color: #d1e7dd;
+        border-color: #badbcc;
+    }
+
+    .alert-danger {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+    }
+
+    .alert-warning {
+        color: #664d03;
+        background-color: #fff3cd;
+        border-color: #ffecb5;
+    }
+
+    .alert-dismissible {
+        padding-right: 3rem;
+    }
+
+    .alert {
+        position: relative;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .fade {
+        transition: opacity .15s linear;
     }
 
     [type=button]:not(:disabled),
@@ -109,21 +140,64 @@ function test_input($data)
         cursor: pointer;
     }
 
-    button.close {
-        padding: 0;
-        background-color: transparent;
-        border: 0;
+    .alert-dismissible .btn-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        padding: 1.25rem 1rem;
     }
 
-    .close {
-        float: right;
-        font-size: 1.5rem;
-        font-weight: 700;
-        line-height: 1;
-        color: #000;
-        text-shadow: 0 1px 0 #4df;
+    [type=button]:not(:disabled),
+    [type=reset]:not(:disabled),
+    [type=submit]:not(:disabled),
+    button:not(:disabled) {
+        cursor: pointer;
+    }
+
+    .btn-close {
+        box-sizing: content-box;
+        width: 1em;
+        height: 1em;
+        padding: 0.25em 0.25em;
+        border: 0;
+        border-radius: 0.25rem;
         opacity: .5;
     }
+
+    [type=button],
+    [type=reset],
+    [type=submit],
+    button {
+        -webkit-appearance: button;
+    }
+
+    button,
+    select {
+        text-transform: none;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+        margin: 0;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    button {
+        border-radius: 0;
+    }
+
+    .bi-x-lg {
+        color: black;
+        font-size: 18px;
+    }
+
+    /* table */
 
     .table td,
     .table th {
@@ -188,19 +262,22 @@ function test_input($data)
     include('common_user_func/user_navbar.php');
     ?>
 
+    <!-- Validation modal -->
+    <?php
+    if (isset($_SESSION['status']) && isset($_SESSION['status-mode'])) { ?>
 
+        <div class="alert alert-dismissible fade show <?php echo $_SESSION['status-mode'] ?>" role="alert">
+            <strong><?php echo $_SESSION['status']; ?></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+        </div>
+    <?php
+    }
+    unset($_SESSION['status']);
+    unset($_SESSION['status-mode']);
+    ?>
     <!-- Donor detals card -->
 
     <div class="container-redir">
-        <?php
-        // if ($sql_execute) {
-        //     $ele = '<div class="alert alert-success alert-dismissible">
-        // <button type="button" class="close" data-dismiss="alert">&times;</button>
-        //     <strong>Success!</strong> The latest donation details have been updated.
-        //   </div>';
-        //     echo $ele;
-        // }
-        ?>
         <div class="card-redir">
             <h3 class="head-redir">Donor Details</h3>
             <div class="content-redir">
@@ -339,7 +416,7 @@ function test_input($data)
 
 
                         <div class="button-center-don-rel">
-                            <a href="user_login.php" class="butn-a-don-rel"> <button class="butn-don-rel1" name="donated_update"><i class="bi bi-pencil-square"></i> Update</button></a>
+                            <a href="donor_details.php" class="butn-a-don-rel"> <button class="butn-don-rel1" name="donated_update"><i class="bi bi-pencil-square"></i> Update</button></a>
                         </div>
                     </form>
                 </div>
@@ -371,7 +448,7 @@ function test_input($data)
                                 <tr>
                                     <td><?php echo $fetchData['dona_date']; ?></td>
                                     <td> <?php echo $fetchData['dona_hospName']; ?></td>
-                                    <td><a href='common_user_func\certif_show.php?certif=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='view_certif'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
+                                    <td><a href='common_user_func\certif_show.php?certif=<?php echo $fetchData['dona_id']; ?>' target="_blank" class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='view_certif'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
                                     <td>
                                         <a href='common_user_func\edit_donation_details.php?edit=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 edit_toggle' name='donated_update'><i class='bi bi-pencil-square'></i></button></a>
                                         <a href='common_user_func\delete_donation_details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_update'><i class='bi bi-trash3'></i></button></a>
