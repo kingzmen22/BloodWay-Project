@@ -3,10 +3,15 @@ session_start();
 include('../includes/connect.php');
 $error = null;
 
-$select_query = "Select * from user_details where  user_email='$user_email'";
-$result = mysqli_query($con, $select_query);
-// $fetch= mysqli;
-
+if (isset($_SESSION['user_email'])) {
+    $user_email = $_SESSION['user_email'];
+    $select_query = "Select * from user_details where  user_email='$user_email'";
+    $result = mysqli_query($con, $select_query);
+    $fetch = mysqli_fetch_assoc($result);
+    $username = $fetch['user_name'];
+    $useremail = $fetch['user_email'];
+    $userpass = $fetch['user_password'];
+}
 
 
 //SQL_QUERY 
@@ -88,6 +93,11 @@ if (isset($_POST['user_signup'])) {
             --atag-color: #031b85;
             --formfield-bg: #ffffff;
             --form-focus-color: #F5F5F5;
+            --button-dark: #262626;
+            --menubar-bg: #EEEEEE;
+            --a-hover:#FAFAFA;
+            --menulist-hover:#FAFAFA;
+            --button-dark-hover:#000000;
         }
 
         .dark-theme {
@@ -97,12 +107,22 @@ if (isset($_POST['user_signup'])) {
             --atag-color: #ffffff;
             --formfield-bg: #181c28;
             --form-focus-color: #263238;
+            --button-dark: #1266F1;
+            --menubar-bg: #181c28;
+            --a-hover:#1266F1;
+            --menulist-hover:#1266F1;
+            --button-dark-hover:#0091EA;
         }
 
         .form-label,
         .form-check-label,
         .Title-profile {
             color: var(--text-form);
+        }
+
+        .Title-profile {
+            margin-top: 10px;
+            margin-left: 30px;
         }
 
         body {
@@ -116,10 +136,6 @@ if (isset($_POST['user_signup'])) {
             text-decoration: none;
         }
 
-        .signup-form form a:hover {
-            background-color: #ffffff;
-        }
-
         .alert {
             height: 30px;
             display: none;
@@ -128,7 +144,7 @@ if (isset($_POST['user_signup'])) {
         }
 
         .form-group {
-            margin-top: 10px;
+            margin-top: 30px;
         }
 
         .form-control:focus {
@@ -146,9 +162,88 @@ if (isset($_POST['user_signup'])) {
         }
 
         .containform {
+            width: 800px;
+        }
+
+        .form-control:disabled,
+        .form-control[readonly] {
+            background-color: var(--form-focus-color);
+            opacity: 1;
+        }
+
+        .btn-dark {
+            background-color: var(--button-dark);
+            width: 30%;
+        }
+        .btn-dark:hover {
+            background-color: var(--button-dark-hover);
+            width: 30%;
+        }
+
+        .allcontainer {
+            display: flex;
+            /* flex-direction: row; */
+            flex-wrap: wrap;
+        }
+
+        .sidebar {
+
+            background-color: var(--menubar-bg);
+            border-radius: 4px;
+            padding: 20px;
+            width: 300px;
+            /* color: #F5F5F5; */
+            text-align: center;
+            margin-left: 90px;
+            margin-top: 30px;
+
+
+        }
+
+
+
+        .sidebar-list {
+            color: var(--text-form);
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+        }
+
+        .sidebar-list:hover {
+            color: #262626;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-li {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 18px;
             width: 100%;
-            padding-right: 70px;
-            padding-left: 70px;
+            text-decoration: none;
+
+        }
+
+        .sidebar-li:hover {
+            background-color: var(--menulist-hover);
+            /* color: #ffffff; */
+            max-width: 100%;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .sidebar a:hover {
+            text-decoration: none;
+            background-color: var(--a-hover);
+            color: var(--text-form);
+            max-width: 100%;
+
+        }
+
+        .sidebar a {
+            padding: 2px;
+            max-width: 100%;
+
         }
     </style>
 
@@ -176,36 +271,35 @@ if ($error != null) {
     <!-- <nav>
     
 </nav> -->
+    <h2>
+        <p class="Title-profile">My Profile</p>
+    </h2>
+    <div class="allcontainer">
+        <!-- signup form -->
+        <div class="form-group containform">
+            <form class="px-5">
+                <div class="mb-3 ">
+                    <label for="InputUsername" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="InputUsername" aria-describedby="emailHelp" value="<?php echo $username; ?>">
 
-    <!-- signup form -->
-    <div class="form-group containform">
-        <h2>
-            <center class="Title-profile">My Profile</center>
-        </h2>
-        <form class="px-5">
-            <div class="mb-3 ">
-                <label for="InputUsername" class="form-label">Username</label>
-                <input type="text" class="form-control" id="InputUsername" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3 ">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $useremail; ?>" readonly>
+                </div>
+                <button type="button" class="btn btn-dark">Update</button>
+            </form>
+        </div>
 
-            </div>
-            <div class="mb-3 ">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3 ">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3 form-check">
-                <a href="">Change Password</a>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <div class="sidebar">
+            <ul>
+                <li class="sidebar-li"><a class="sidebar-list" href="">Change Password</a></li>
+                <li class="sidebar-li"><a class="sidebar-list" href="">Delete Account</a></li>
+                <li class="sidebar-li"><a class="sidebar-list" href="">Reset Account</a></li>
+                <li class="sidebar-li"><a class="sidebar-list" href="">Logout</a></li>
+            </ul>
+        </div>
     </div>
-
-    </div>
-
-
 </body>
 
 <!-- dark theme js -->
