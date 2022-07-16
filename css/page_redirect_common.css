@@ -2,11 +2,13 @@
     :root {
         --container-redir-bg: whitesmoke;
         --content-redir-bg: white;
+        --content-redir-text:black;
     }
 
     .dark-theme {
         --container-redir-bg: rgb(35, 36, 53);
         --content-redir-bg: whitesmoke;
+        --content-redir-text:white;
     }
 
     .container-redir {
@@ -36,7 +38,7 @@
         background-color: var(--content-redir-bg);
         padding-top: 10px;
         padding-bottom: 10px;
-        color: black;
+        color: var(--content-redir-text);
         border-radius: 4px;
         margin-bottom: 41px;
     }

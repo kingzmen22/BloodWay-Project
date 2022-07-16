@@ -432,31 +432,39 @@ function test_input($data)
             <h3 class="head-don-rel">Donation History</h3>
             <div class="content-don-rel">
                 <div class="h3-body-don-rel">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Hospital</th>
-                                <th>Certificate</th>
-                                <th>Edit/Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            while ($fetchData = mysqli_fetch_assoc($result)) : ?>
+                    <?php
 
+                    if ($rows_count < 1) { ?>
+                        <h4 class="norecord-don-rel">No records found!</h4>
+                    <?php
+                    } else { ?>
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $fetchData['dona_date']; ?></td>
-                                    <td> <?php echo $fetchData['dona_hospName']; ?></td>
-                                    <td><a href='common_user_func\certif_show.php?certif=<?php echo $fetchData['dona_id']; ?>' target="_blank" class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='view_certif'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
-                                    <td>
-                                        <a href='common_user_func\edit_donation_details.php?edit=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 edit_toggle' name='donated_update'><i class='bi bi-pencil-square'></i></button></a>
-                                        <a href='common_user_func\delete_donation_details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_update'><i class='bi bi-trash3'></i></button></a>
-                                    </td>
+                                    <th>Date</th>
+                                    <th>Hospital</th>
+                                    <th>Certificate</th>
+                                    <th>Edit/Delete</th>
                                 </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php
+                                while ($fetchData = mysqli_fetch_assoc($result)) : ?>
+
+                                    <tr>
+                                        <td><?php echo $fetchData['dona_date']; ?></td>
+                                        <td> <?php echo $fetchData['dona_hospName']; ?></td>
+                                        <td><a href='common_user_func\certif_show.php?certif=<?php echo $fetchData['dona_id']; ?>' target="_blank" class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='view_certif'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
+                                        <td>
+                                            <a href='common_user_func\edit_donation_details.php?edit=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 edit_toggle' name='donated_update'><i class='bi bi-pencil-square'></i></button></a>
+                                            <a href='common_user_func\delete_donation_details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_update'><i class='bi bi-trash3'></i></button></a>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    <?php } ?>
+
 
                 </div>
             </div>

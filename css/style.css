@@ -90,7 +90,6 @@ nav ul li {
 }
 nav ul li a {
   color: var(--nav-element);
-  /* display: block; */
   font-size: 17px;
   padding: 7px 10px;
   border-radius: 4px;
@@ -108,7 +107,6 @@ nav ul li a {
 nav ul ul {
   position: absolute;
   top: 55px;
-
   border-top: 2px solid var(--nav-element-hover);
   opacity: 0;
   visibility: hidden;

@@ -26,8 +26,7 @@
         <div class="dropdown-content1" style="right:0;">
 
             <a href="donor_details.php">Donor Details</a>
-            <a href="#">My Profile</a>
-            <!-- <a href="user_logout.php">Logout</a> -->
+            <a href="user_profile.php">My Profile</a>
             <a href="#logoutModal" class="trigger-btn" data-toggle="modal">Logout</a>
         </div>
     </div>
@@ -68,10 +67,8 @@
 
         <div class="dropdown-content1-resp">
 
-            <a href="#">Donor Details</a>
-            <a href="#">My Profile</a>
-            <a href="#">Settings</a>
-            <!-- <a href="user_logout.php">Logout</a> -->
+            <a href="donor_details.php">Donor Details</a>
+            <a href="user_profile.php">My Profile</a>
             <a href="#logoutModal" class="trigger-btn" data-toggle="modal">Logout</a>
 
         </div>
