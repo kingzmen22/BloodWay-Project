@@ -2,47 +2,60 @@
 session_start();
 include('../includes/connect.php');
 $user_email = $_SESSION['user_email'];
-if (isset($_SESSION['user_email'])) {
-    $select_query = "Select * from user_details where  user_email='$user_email'";
-    $result = mysqli_query($con, $select_query);
-    $fetch = mysqli_fetch_assoc($result);
-    $username = $fetch['user_name'];
-    $useremail = $fetch['user_email'];
-}
 
 //SQL_QUERY 
 
-if (isset($_POST['update-profile'])) {
-    $profile_username = $_POST['username-profile'];
+if (isset($_POST['update-pass'])) {
+    $oldPassword = $_POST['oldpass-profile'];
+    // $hash_oldPassword = password_hash($oldPassword, PASSWORD_DEFAULT);
+    $new_password = $_POST['pass-profile'];
+    $conf_new_password = $_POST['conf-pass-profile'];
+
 
     //select query
     $select_query = "SELECT * from user_details where user_email='$user_email'";
     $result = mysqli_query($con, $select_query);
     $rows_count = mysqli_num_rows($result);
+    $fetch = mysqli_fetch_assoc($result);
+    $userpassword = $fetch['user_password'];
 
     if ($rows_count > 0) {
-        // sanitzing data
-        $profile_username = $con->real_escape_string($profile_username);
 
-        //update query
-        $update_query = "UPDATE user_details SET user_name ='$profile_username' WHERE user_email='$user_email' ";
-        $sql_execute = mysqli_query($con, $update_query);
-        if ($sql_execute) {
-            $_SESSION['error'] = "Username updated Successfully";
-            $_SESSION['error-mode'] = "alert-success";
-            $_SESSION['user_name'] = $profile_username;
-            header('location:user_profile.php');
-            exit(0);
+        if (password_verify($oldPassword, $userpassword)) {
+            if ($new_password == $conf_new_password) {
+
+                $hash_new_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+                $conf_user_password = $con->real_escape_string($conf_user_password);
+                //update query
+                $update_query = "UPDATE user_details SET user_password ='$hash_new_password' WHERE user_email='$user_email' ";
+                $sql_execute = mysqli_query($con, $update_query);
+                if ($sql_execute) {
+                    $_SESSION['error'] = "Password changed Successfully!";
+                    $_SESSION['error-mode'] = "alert-success";
+                    header('location:user_profile.php');
+                    exit(0);
+                } else {
+                    $_SESSION['error'] = "Something went wrong!";
+                    $_SESSION['error-mode'] = "alert-danger";
+                    header('location:changePass.php');
+                    exit(0);
+                }
+            } else {
+                $_SESSION['error'] = "Passwords do not match!";
+                $_SESSION['error-mode'] = "alert-danger";
+                header('location:changePass.php');
+                exit(0);
+            }
         } else {
-            $_SESSION['error'] = "Something went wrong!";
+            $_SESSION['error'] = "Current password is wrong!";
             $_SESSION['error-mode'] = "alert-danger";
-            header('location:user_profile.php');
+            header('location:changePass.php');
             exit(0);
         }
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,11 +63,8 @@ if (isset($_POST['update-profile'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>My Profile</title>
+    <title>Change password</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/modal_bs_custom.css" />
-    <link rel="stylesheet" href="../css/popup_modal.css" />
     <link rel="stylesheet" href="../css/fullbs5.css">
 
     <style>
@@ -127,10 +137,6 @@ if (isset($_POST['update-profile'])) {
             align-items: center;
         }
 
-        .fade {
-            transition: opacity .15s linear;
-        }
-
         .form-label,
         .form-check-label,
         .Title-profile {
@@ -138,7 +144,7 @@ if (isset($_POST['update-profile'])) {
         }
 
         .Title-profile {
-            margin-top: 10px;
+            margin-top: 25px;
             margin-left: 30px;
         }
 
@@ -172,7 +178,7 @@ if (isset($_POST['update-profile'])) {
         }
 
         .containform {
-            width: 800px;
+            max-width: 850px;
         }
 
         .form-control:disabled,
@@ -188,87 +194,12 @@ if (isset($_POST['update-profile'])) {
 
         .btn-dark:hover {
             background-color: var(--button-dark-hover);
-            width: 30%;
         }
 
-        .allcontainer {
-            display: flex;
-            /* flex-direction: row; */
-            flex-wrap: wrap;
-        }
-
-        .sidebar {
-
-            background-color: var(--menubar-bg);
-            border-radius: 4px;
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-            margin-left: 20px;
-            margin-top: 30px;
-        }
-
-        .sidebar-list {
-            color: var(--text-form);
-            margin-top: 10px;
-            margin-bottom: 10px;
-
-        }
-
-        .sidebar-list:hover {
-            color: #262626;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .sidebar-li {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            font-size: 18px;
-            width: 100%;
-            text-decoration: none;
-
-        }
-
-        .sidebar-li:hover {
-            background-color: var(--menulist-hover);
-            /* color: #ffffff; */
-            max-width: 100%;
-            text-decoration: none;
-            border-radius: 3px;
-        }
-
-        .sidebar a:hover {
-            text-decoration: none;
-            background-color: var(--a-hover);
-            color: var(--text-form);
-            max-width: 100%;
-
-        }
-
-        .sidebar a {
-            padding: 2px;
-            max-width: 100%;
-
-        }
-
-        @media (max-width: 858px) {
-            #sidebar-ul {
-                position: static;
-                width: 100%;
-                height: 100%;
-                background: none;
-                box-shadow: none;
-                backdrop-filter: none;
-                top: 80px;
-                left: -100%;
-                text-align: center;
-                transition: all 0.5s;
-            }
-
-            .sidebar {
-                width: 100%;
-                margin-left: 0px;
+        @media (max-width: 640px) {
+            .btn-dark {
+                background-color: var(--button-dark);
+                width: 40%;
             }
         }
     </style>
@@ -276,14 +207,11 @@ if (isset($_POST['update-profile'])) {
 </head>
 
 <body>
-    <!-- NavBar -->
-    <?php
-    include('common_user_func/user_navbar.php');
-    ?>
 
     <h2>
-        <p class="Title-profile">My Profile</p>
+        <p class="Title-profile">Change Your Password</p>
     </h2>
+    <h6><i class="zz" id="icon"></i></h6>
 
     <!-- Validation alert block  -->
     <?php
@@ -301,32 +229,23 @@ if (isset($_POST['update-profile'])) {
     unset($_SESSION['error-mode']);
     ?>
 
-
-    <div class="allcontainer">
-        <!-- signup form -->
-        <div class="form-group containform">
-            <form class="px-5" action="#" method="POST">
-                <div class="mb-3 ">
-                    <label for="InputUsername" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="InputUsername" name="username-profile" value="<?php echo $username; ?>" required>
-
-                </div>
-                <div class="mb-3 ">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $useremail; ?>" readonly>
-                </div>
-                <button type="submit" class="btn btn-dark" name="update-profile">Update</button>
-            </form>
-        </div>
-
-        <!-- sidebar -->
-        <div class="sidebar">
-            <ul id="sidebar-ul">
-                <li class="sidebar-li"><a class="sidebar-list" href="changePass.php">Change Password</a></li>
-                <li class="sidebar-li"><a class="sidebar-list" href="deleteAccount.php">Delete Account</a></li>
-                <li class="sidebar-li"><a class="sidebar-list trigger-btn"  href="#logoutModal" data-toggle="modal">Logout</a></li>
-            </ul>
-        </div>
+    <!-- Change Password form -->
+    <div class="form-group containform">
+        <form class="px-5" action="" method="POST">
+            <div class="mb-3 ">
+                <label for="InputOldPass" class="form-label">Current Password</label>
+                <input type="password" class="form-control" id="InputOldPass" aria-describedby="passHelp" name="oldpass-profile" placeholder="Enter your current password" required>
+            </div>
+            <div class="mb-3 ">
+                <label for="InputPass1" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="InputPass1" aria-describedby="passHelp" name="pass-profile" placeholder="Enter your new password" required>
+            </div>
+            <div class="mb-3 ">
+                <label for="InputPass2" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="InputPass2" aria-describedby="passHelp" name="conf-pass-profile" placeholder="Confirm your new password" required>
+            </div>
+            <button type="submit" class="btn btn-dark mt-2" name="update-pass">Change Password</button>
+        </form>
     </div>
 </body>
 

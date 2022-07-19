@@ -9,8 +9,10 @@ if (isset($_POST['user_signup'])) {
     $user_username = $_POST['user_username'];
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
+    $user_password = $con->real_escape_string($user_password);
     $hash_password = password_hash($user_password, PASSWORD_DEFAULT);
     $conf_user_password = $_POST['conf_user_password'];
+    $conf_user_password = $con->real_escape_string($conf_user_password);
 
     //select query
 
@@ -25,9 +27,7 @@ if (isset($_POST['user_signup'])) {
         // sanitzing data
         $user_username = $con->real_escape_string($user_username);
         $user_email = $con->real_escape_string($user_email);
-        $user_password = $con->real_escape_string($user_password);
-        $conf_user_password = $con->real_escape_string($conf_user_password);
-
+        
         // verification key generating
 
         $vkey = password_hash($user_username, PASSWORD_DEFAULT);
