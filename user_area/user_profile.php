@@ -16,12 +16,11 @@ if (isset($_SESSION['user_email'])) {
 
 //SQL_QUERY 
 
-if (isset($_POST['user_signup'])) {
-    $user_username = $_POST['user_username'];
-    $user_email = $_POST['user_email'];
-    $user_password = $_POST['user_password'];
-    $hash_password = password_hash($user_password, PASSWORD_DEFAULT);
-    $conf_user_password = $_POST['conf_user_password'];
+if (isset($_POST['update-profile'])) {
+    $profile_username = $_POST['username-profile'];
+    // $user_password = $_POST['user_password'];
+    // $hash_password = password_hash($user_password, PASSWORD_DEFAULT);
+    // $conf_user_password = $_POST['conf_user_password'];
 
     //select query
 
@@ -39,31 +38,10 @@ if (isset($_POST['user_signup'])) {
         $user_password = $con->real_escape_string($user_password);
         $conf_user_password = $con->real_escape_string($conf_user_password);
 
-        // verification key generating
-
-        $vkey = password_hash($user_username, PASSWORD_DEFAULT);
-
         //insert query
-
         $insert_query = "insert into user_details (user_name,user_email,user_password,vkey) values ('$user_username','$user_email','$hash_password','$vkey')";
         $sql_execute = mysqli_query($con, $insert_query);
         // echo "<script>alert('Successfully Registered!')</script>";
-
-        // account verification email sending
-
-        $to = $user_email;
-        $subject = "BloodWay Account Verification";
-        $message = "<a href='http://localhost/user_area/email_verify.php?vkey=$vkey'>Verify Account</a>";
-        $headers = "From: bloodwaynss@gmail.com  \r\n";
-        $headers .= 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-        if (mail($to, $subject, $message, $headers)) {
-            echo "<script>alert('Email sent succesfully to $to')</script>";
-            header('location: thankyou_page.php');
-        } else {
-            echo "<script>alert('Failed to send email!')</script>";
-        }
     }
 }
 ?>
@@ -75,15 +53,10 @@ if (isset($_POST['user_signup'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Create Account</title>
-
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <title>My Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/fullbs5.css">
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 
     <style>
         :root {
@@ -95,9 +68,9 @@ if (isset($_POST['user_signup'])) {
             --form-focus-color: #F5F5F5;
             --button-dark: #262626;
             --menubar-bg: #EEEEEE;
-            --a-hover:#FAFAFA;
-            --menulist-hover:#FAFAFA;
-            --button-dark-hover:#000000;
+            --a-hover: #FAFAFA;
+            --menulist-hover: #FAFAFA;
+            --button-dark-hover: #000000;
         }
 
         .dark-theme {
@@ -109,9 +82,9 @@ if (isset($_POST['user_signup'])) {
             --form-focus-color: #263238;
             --button-dark: #1266F1;
             --menubar-bg: #181c28;
-            --a-hover:#1266F1;
-            --menulist-hover:#1266F1;
-            --button-dark-hover:#0091EA;
+            --a-hover: #1266F1;
+            --menulist-hover: #1266F1;
+            --button-dark-hover: #0091EA;
         }
 
         .form-label,
@@ -175,6 +148,7 @@ if (isset($_POST['user_signup'])) {
             background-color: var(--button-dark);
             width: 30%;
         }
+
         .btn-dark:hover {
             background-color: var(--button-dark-hover);
             width: 30%;
@@ -192,12 +166,9 @@ if (isset($_POST['user_signup'])) {
             border-radius: 4px;
             padding: 20px;
             width: 300px;
-            /* color: #F5F5F5; */
             text-align: center;
-            margin-left: 90px;
+            margin-left: 20px;
             margin-top: 30px;
-
-
         }
 
 
@@ -245,8 +216,27 @@ if (isset($_POST['user_signup'])) {
             max-width: 100%;
 
         }
-    </style>
 
+        @media (max-width: 858px) {
+            #sidebar-ul {
+                position: static;
+                width: 100%;
+                height: 100%;
+                background: none;
+                box-shadow: none;
+                backdrop-filter: none;
+                top: 80px;
+                left: -100%;
+                text-align: center;
+                transition: all 0.5s;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-left: 0px;
+            }
+        }
+    </style>
 
 </head>
 <?php
@@ -277,22 +267,22 @@ if ($error != null) {
     <div class="allcontainer">
         <!-- signup form -->
         <div class="form-group containform">
-            <form class="px-5">
+            <form class="px-5" action="" method="POST">
                 <div class="mb-3 ">
                     <label for="InputUsername" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="InputUsername" aria-describedby="emailHelp" value="<?php echo $username; ?>">
+                    <input type="text" class="form-control" id="InputUsername" aria-describedby="emailHelp" name="username-profile" value="<?php echo $username; ?>">
 
                 </div>
                 <div class="mb-3 ">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $useremail; ?>" readonly>
                 </div>
-                <button type="button" class="btn btn-dark">Update</button>
+                <button type="button" class="btn btn-dark" name="update-profile">Update</button>
             </form>
         </div>
 
         <div class="sidebar">
-            <ul>
+            <ul id="sidebar-ul">
                 <li class="sidebar-li"><a class="sidebar-list" href="">Change Password</a></li>
                 <li class="sidebar-li"><a class="sidebar-list" href="">Delete Account</a></li>
                 <li class="sidebar-li"><a class="sidebar-list" href="">Reset Account</a></li>
