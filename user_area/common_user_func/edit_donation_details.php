@@ -25,6 +25,7 @@ if (isset($_GET['edit'])) {
         if (isset($_POST['donated_update'])) {
             $donated_hospital = test_input($_POST['donated_hospital']);
             $donated_date = test_input($_POST['donated_date']);
+            $_SESSION['donated-date']=$donated_date;
 
             $donated_certificate = $_FILES['donated_certificate'];
             $imgname = $donated_certificate['name'];

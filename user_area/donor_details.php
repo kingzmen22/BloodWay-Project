@@ -19,36 +19,58 @@ if (isset($_SESSION["user_email"])) {
 }
 
 
+
+
 if (isset($_POST['donated_update'])) {
     $donated_hospital = test_input($_POST['donated_hospital']);
     $donated_date = test_input($_POST['donated_date']);
 
-    $donated_certificate = $_FILES['donated_certificate'];
-    $imgname = $donated_certificate['name'];
-    $imgtmpname = $donated_certificate['tmp_name'];
+    $dateOfDonation = date($donated_date);
+    $today = date("Y-m-d");
 
-    $donated_hospital = $con->real_escape_string($donated_hospital);
-    $donated_date = $con->real_escape_string($donated_date);
-
-    $filenmesep = explode('.', $imgname);
-    $fileext = strtolower(end($filenmesep));
-    $extn = array('jpeg', 'jpg', 'png');
-    if (in_array($fileext, $extn)) {
-        $upload_img = "../user_area/dona_certif_imgs/" . $imgname;
-        move_uploaded_file($imgtmpname, $upload_img);
-        $insert_query = "insert into donation_details (dona_email,dona_hospName,dona_date,dona_certif) values ('$conf_email','$donated_hospital','$donated_date','$upload_img')";
-        $sql_execute = mysqli_query($con, $insert_query);
-    }
-    if ($sql_execute) {
-        $_SESSION['status'] = "Details added successfully!";
-        $_SESSION['status-mode'] = "alert-success";
-        header('location:donor_details.php');
-        exit(0);
-    } else {
-        $_SESSION['status'] = "Something went wrong!";
+    if ($dateOfDonation > $today) {
+        $_SESSION['status'] = "Given date is bigger than today's date";
         $_SESSION['status-mode'] = "alert-danger";
         header('location:donor_details.php');
         exit(0);
+    } else {
+        $_SESSION['donated-date'] = $donated_date;
+        $image = $_FILES['donated_certificate'];
+        $imgnam = $image['name'];
+        $donated_hospital = $con->real_escape_string($donated_hospital);
+        $donated_date = $con->real_escape_string($donated_date);
+
+        if ($imgnam != null) {
+            $donated_certificate = $_FILES['donated_certificate'];
+            $imgname = $donated_certificate['name'];
+            $imgtmpname = $donated_certificate['tmp_name'];
+
+            $filenmesep = explode('.', $imgname);
+            $fileext = strtolower(end($filenmesep));
+            $extn = array('jpeg', 'jpg', 'png');
+            if (in_array($fileext, $extn)) {
+                $upload_img = "../user_area/dona_certif_imgs/" . $imgname;
+                move_uploaded_file($imgtmpname, $upload_img);
+                $insert_query = "insert into donation_details (dona_email,dona_hospName,dona_date,dona_certif) values ('$conf_email','$donated_hospital','$donated_date','$upload_img')";
+                $sql_execute = mysqli_query($con, $insert_query);
+            }
+        } else {
+            $upload_img = "";
+            $insert_query = "insert into donation_details (dona_email,dona_hospName,dona_date,dona_certif) values ('$conf_email','$donated_hospital','$donated_date','$upload_img')";
+            $sql_execute = mysqli_query($con, $insert_query);
+        }
+
+        if ($sql_execute) {
+            $_SESSION['status'] = "Details added successfully!";
+            $_SESSION['status-mode'] = "alert-success";
+            header('location:donor_details.php');
+            exit(0);
+        } else {
+            $_SESSION['status'] = "Something went wrong!";
+            $_SESSION['status-mode'] = "alert-danger";
+            header('location:donor_details.php');
+            exit(0);
+        }
     }
 }
 
@@ -411,7 +433,7 @@ function test_input($data)
 
                         <div class="input-box-reg">
                             <span class="details-reg">Certificate(Optional)</span>
-                            <input type="file" class="file-input" placeholder="Browse image" name="donated_certificate">
+                            <input type="file" class="file-input" placeholder="Browse image" name="donated_certificate" value="">
                         </div>
 
 

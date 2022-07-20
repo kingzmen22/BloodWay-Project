@@ -46,6 +46,14 @@ if (isset($_GET['certif'])) {
 
         }
 
+        .null-certifi-text {
+            color: var(--dropdown-text);
+            display: flex;
+            justify-content: center;
+            margin-top: 250px;
+            font-size: 40px;
+        }
+
         @media screen and (max-width: 1260px) {
             body {
                 padding: 140px;
@@ -59,6 +67,12 @@ if (isset($_GET['certif'])) {
                     padding-top: 5px;
                     padding-bottom: 15px;
                 }
+
+                .null-certifi-text {
+                    margin-top: 250px;
+                    font-size: 25px;
+                }
+
             }
 
             @media screen and (max-width: 540px) {
@@ -67,6 +81,11 @@ if (isset($_GET['certif'])) {
                     padding-top: 100px;
                     padding-bottom: 15px;
                 }
+
+                .null-certifi-text {
+                    margin-top: 150px;
+                    font-size: 25px;
+                }
             }
         }
     </style>
@@ -74,7 +93,12 @@ if (isset($_GET['certif'])) {
 
 <body>
     <h3><i class="zz" id="icon"></i></h3>
-    <img src="../<?php echo $certif_img ?>">
+    <?php
+    if ($certif_img != null) { ?>
+        <img src="../<?php echo $certif_img ?>">
+    <?php } else { ?>
+        <h2 class="null-certifi-text">You have not uploaded any certificate!</h2>
+    <?php } ?>
 </body>
 
 </html>
