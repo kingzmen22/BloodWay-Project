@@ -54,8 +54,8 @@ if (isset($_SESSION["user_email"])) {
       <div class="col">
         <label class="">Blood Group</label>
         <form action="" method="get">
-          <select class="form-select">
-            <option value="" selected>Select</option>
+          <select class="form-select" id="fetchBG" name="fetchBG">
+            <option value="" disabled="" selected="">Select</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="AB+">AB+</option>
@@ -98,32 +98,35 @@ if (isset($_SESSION["user_email"])) {
     <h4 class="norecord-findon">No records found!</h4>
   <?php
   } else { ?>
-    <table class="table mt-5 table-dark table-hover table-responsive donors-list">
-      <thead>
-        <tr>
-          <th>SI No.</th>
-          <th>Name</th>
-          <th>Blood Group</th>
-          <th>Distirct/Zone</th>
-          <th>Status</th>
-          <th>Contact</th>
-        </tr>
-      </thead>
-
-      <tbody id="tab">
-        <?php
-        $si_no=1;
-        while ($fetchData = mysqli_fetch_assoc($result)) : ?>
+    <div class="container">
+      <table class="table mt-5 table-dark table-hover table-responsive donors-list">
+        <thead>
           <tr>
-            <th><?php echo $si_no; ?></th>
-            <td><?php echo $fetchData['donor_name']; ?></td>
-            <td><?php echo $fetchData['donor_bgrp']; ?></td>
-            <td><?php echo $fetchData['donor_zone']; ?></td>
+            <th>SI No.</th>
+            <th>Name</th>
+            <th>Blood Group</th>
+            <th>Distirct/Zone</th>
+            <th>Status</th>
+            <th>Contact</th>
           </tr>
-        <?php $si_no++; endwhile; ?>
-      </tbody>
+        </thead>
 
-    </table>
+        <tbody id="tab">
+          <?php
+          $si_no = 1;
+          while ($fetchData = mysqli_fetch_assoc($result)) : ?>
+            <tr>
+              <th><?php echo $si_no; ?></th>
+              <td><?php echo $fetchData['donor_name']; ?></td>
+              <td><?php echo $fetchData['donor_bgrp']; ?></td>
+              <td><?php echo $fetchData['donor_zone']; ?></td>
+            </tr>
+          <?php $si_no++;
+          endwhile; ?>
+        </tbody>
+
+      </table>
+    </div>
   <?php } ?>
   <!-- footer -->
 
@@ -183,5 +186,22 @@ if (isset($_SESSION["user_email"])) {
   });
 </script>
 
+<!-- jquery for blood group dropdown -->
+
+<script>
+  $(document).ready(function() {
+    $("#fetchBG").on('change', function() {
+      var value1 = $(this).val();
+      $.ajax({
+        url: "external_php/dd_fetch.php",
+        type: "POST",
+        data: 'request=' + value1,
+        success: function(data) {
+          $(".container").html(data);
+        }
+      });
+    });
+  });
+</script>
 
 </html>
