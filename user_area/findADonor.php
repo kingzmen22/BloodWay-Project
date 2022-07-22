@@ -72,7 +72,7 @@ if (isset($_SESSION["user_email"])) {
       <div class="col">
         <label class="">Distirct/Zone</label>
         <form action="" method="get">
-          <select class="form-select">
+          <select class="form-select" id="fetchZone" name="fetchZone">
             <option value="" selected>Select</option>
             <option value="Ernakulam">Ernakulam</option>
             <option value="Thrissur">Thrissur</option>
@@ -98,7 +98,7 @@ if (isset($_SESSION["user_email"])) {
     <h4 class="norecord-findon">No records found!</h4>
   <?php
   } else { ?>
-    <div class="container">
+    <div class="container bgclass">
       <table class="table mt-5 table-dark table-hover table-responsive donors-list">
         <thead>
           <tr>
@@ -195,9 +195,25 @@ if (isset($_SESSION["user_email"])) {
       $.ajax({
         url: "external_php/dd_fetch.php",
         type: "POST",
-        data: 'request=' + value1,
+        data: 'request1=' + value1,
         success: function(data) {
-          $(".container").html(data);
+          $(".bgclass").html(data);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#fetchZone").on('change', function() {
+      var value2 = $(this).val();
+      $.ajax({
+        url: "external_php/dd_fetch.php",
+        type: "POST",
+        data: 'request2=' + value2,
+        success: function(data) {
+          $(".bgclass").html(data);
         }
       });
     });
