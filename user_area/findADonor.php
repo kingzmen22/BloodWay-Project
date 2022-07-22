@@ -23,18 +23,37 @@ if (isset($_SESSION["user_email"])) {
 <head>
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
   <meta charset="utf-8" />
-  <title>BloodWay Home</title>
+  <title>Search for Donor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/style_signup.css" />
   <link rel="stylesheet" href="../css/fullbs5.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <style>
   /* body {
     background-color: white;
   } */
+
+  .filter-btn {
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .btn {
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #1976D2;
+    color: white;
+    border: none;
+  }
+
+  .bi-funnel {
+    margin-right: 4px;
+  }
 </style>
 </head>
 
@@ -73,15 +92,34 @@ if (isset($_SESSION["user_email"])) {
         <label class="">Distirct/Zone</label>
         <form action="" method="get">
           <select class="form-select" id="fetchZone" name="fetchZone">
-            <option value="" selected>Select</option>
+            <option value="" disabled="" selected="">Select</option>
             <option value="Ernakulam">Ernakulam</option>
             <option value="Thrissur">Thrissur</option>
           </select>
         </form>
       </div>
+
+      <div class="col">
+        <label class="">Category</label>
+        <form action="" method="get">
+          <select class="form-select" id="fetchCateg" name="fetchCateg">
+            <option value="" disabled="" selected="">Select</option>
+            <option value="Nss Volunteer">Nss Volunteer</option>
+            <option value="Student">Student</option>
+            <option value="College Staff">College Staff</option>
+            <option value="Other">Other</option>
+          </select>
+        </form>
+      </div>
+
+      <div class="mt-3 filter-btn">
+        <button type="button" id="filter-btn" class="btn btn-dark btn-sm"><i class="bi bi-funnel"></i> Filter</button>
+      </div>
+
       <h6 class="mt-2">
         <center>-------OR-------</center>
       </h6>
+
       <div class="col">
         <input id="search" type="text" class="form-control" placeholder="Search for Names...." data-tables="donors-list">
       </div>
@@ -204,6 +242,8 @@ if (isset($_SESSION["user_email"])) {
   });
 </script>
 
+<!-- jquery for Zone/District dropdown -->
+
 <script>
   $(document).ready(function() {
     $("#fetchZone").on('change', function() {
@@ -219,5 +259,46 @@ if (isset($_SESSION["user_email"])) {
     });
   });
 </script>
+
+<!-- jquery for Zone/District dropdown -->
+
+<script>
+  $(document).ready(function() {
+    $("#fetchCateg").on('change', function() {
+      var value3 = $(this).val();
+      $.ajax({
+        url: "external_php/dd_fetch.php",
+        type: "POST",
+        data: 'request3=' + value3,
+        success: function(data) {
+          $(".bgclass").html(data);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    $("#filter-btn").click(function() {
+      var fetchBG = $("#fetchBG").val();
+      var fetchZone = $("#fetchZone").val();
+      var fetchCateg = $("#fetchCateg").val();
+      $.post("external_php/dd_fetch.php", {
+          fetchBG: fetchBG,
+          fetchZone: fetchZone,
+          fetchCateg: fetchCateg
+        },
+        function(data, status) {
+          if (data == "success"){
+            $(".bgclass").html(data);
+          }else{
+            $(".bgclass").html(data);
+          }
+        });
+    });
+  });
+</script>
+
 
 </html>
