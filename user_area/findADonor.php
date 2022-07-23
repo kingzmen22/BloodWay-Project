@@ -15,7 +15,9 @@ if (isset($_SESSION["user_email"])) {
   $rows_count = mysqli_num_rows($result);
 }
 
-
+if (isset($_GET['view'])) {
+  $id = $_GET['view'];
+}
 
 ?>
 
@@ -34,6 +36,8 @@ if (isset($_SESSION["user_email"])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 </head>
 <style>
 </style>
@@ -116,7 +120,7 @@ if (isset($_SESSION["user_email"])) {
   <?php
   } else { ?>
     <div class="container bgclass">
-      <table class="table mt-5 table-dark table-hover table-responsive donors-list">
+      <table class="table mt-5  table-responsive donors-list">
         <thead>
           <tr>
             <th>SI No.</th>
@@ -142,11 +146,22 @@ if (isset($_SESSION["user_email"])) {
                 $avail_status = $fetchData['avail_status'];
                 $remain_days = $fetchData['remDays'];
                 if ($avail_status == 1) {
-                  echo  "<p class='btn btn-success btn-sm avail-btn'>Available Now</p>";
+                  echo  "<p class='btn btn-success btn-sm avail-btn'><i class='bi bi-check-circle'></i> Available Now</p>";
                 } else {
-                  echo "<p class='btn btn-warning btn-sm notavail-btn'>Available in $remain_days days</p>";
+                  echo "<p class='btn btn-warning btn-sm notavail-btn'><i class='bi bi-hourglass-split'></i> in $remain_days days</p>";
                 }
                 ?>
+              </td>
+              <td>
+                <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['donor_name']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
+                <div class="collapse" id="<?php echo $fetchData['donor_name']; ?>">
+                  <div class="card card-body">
+                    <strong>Mobile:</strong>
+                    <p><?php echo $fetchData['donor_mobNum']; ?></p>
+                    <strong>Email:</strong>
+                    <p><?php echo $fetchData['donor_email']; ?></p>
+                  </div>
+                </div>
               </td>
 
             </tr>

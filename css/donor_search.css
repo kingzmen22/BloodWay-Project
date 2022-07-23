@@ -4,6 +4,8 @@
   --bg-text-color: black;
   --input-text-color: white;
   --placeholder-text-color: rgb(87, 83, 83);
+  --table-bg: #f9f9f9;
+  --table-text: black;
 }
 
 .dark-theme {
@@ -12,6 +14,8 @@
   --bg-text-color: white;
   --input-text-color: black;
   --placeholder-text-color: #ccc;
+  --table-bg: #201f2c;
+  --table-text: white;
 }
 
 body {
@@ -19,20 +23,18 @@ body {
   color: var(--bg-text-color);
 }
 
-.form-select{
+.form-select {
   background-color: var(--input-field-bg);
   color: var(--bg-text-color);
 }
-.form-control{
-    background-color: var(--input-field-bg);
-    color: var(--bg-text-color);
+.form-control {
+  background-color: var(--input-field-bg);
+  color: var(--bg-text-color);
 }
 
-.form-control::placeholder{
-    
-    color: var(--placeholder-text-color);
+.form-control::placeholder {
+  color: var(--placeholder-text-color);
 }
-
 
 .filter-btn {
   display: flex;
@@ -46,11 +48,22 @@ body {
   color: white;
   border: none;
 }
+
+.table td,
+.table th {
+  background-color: var(--table-bg);
+  color: var(--table-text);
+}
+
 .notavail-btn {
   font-size: 13px;
 }
 
 .avail-btn {
+  font-size: 13px;
+}
+
+.view-btn {
   font-size: 13px;
 }
 
