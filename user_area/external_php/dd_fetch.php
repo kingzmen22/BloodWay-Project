@@ -11,37 +11,14 @@ include('../../includes/connect.php');
     <title>Search for Donor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/fullbs5.css" />
+    <link rel="stylesheet" href="../css/donor_search.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+
 </head>
-
-<style>
-    .filter-btn {
-        display: flex;
-        justify-content: center;
-
-    }
-
-    .filt-btn {
-        padding-left: 30px;
-        padding-right: 30px;
-        background-color: #1976D2;
-        color: white;
-        border: none;
-    }
-
-    .filt-btn:focus {
-        background-color: #1976D2;
-    }
-
-    .filt-btn:hover {
-        background-color: #1565C0;
-    }
-
-    .bi-funnel {
-        margin-right: 4px;
-    }
-</style>
 
 <?php
 if (isset($_POST['fetchZone'])) {
@@ -96,11 +73,22 @@ if (isset($_POST['fetchZone'])) {
                                 $avail_status = $fetchData['avail_status'];
                                 $remain_days = $fetchData['remDays'];
                                 if ($avail_status == 1) {
-                                    echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                                    echo  "<p class='btn btn-success btn-sm avail-btn'><i class='bi bi-check-circle'></i> Available Now</p>";
                                 } else {
-                                    echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                                    echo "<p class='btn btn-warning btn-sm notavail-btn'><i class='bi bi-hourglass-split'></i> in $remain_days days</p>";
                                 }
                                 ?>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['view_charid']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
+                                <div class="collapse" id="<?php echo $fetchData['view_charid']; ?>">
+                                    <div class="card card-body">
+                                        <strong>Mobile:</strong>
+                                        <p><?php echo $fetchData['donor_mobNum']; ?></p>
+                                        <strong>Email:</strong>
+                                        <p><?php echo $fetchData['donor_email']; ?></p>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     <?php $si_no++;
@@ -166,11 +154,22 @@ if (isset($_POST['request1'])) {
                             $avail_status = $fetchData['avail_status'];
                             $remain_days = $fetchData['remDays'];
                             if ($avail_status == 1) {
-                                echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                                echo  "<p class='btn btn-success btn-sm avail-btn'><i class='bi bi-check-circle'></i> Available Now</p>";
                             } else {
-                                echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                                echo "<p class='btn btn-warning btn-sm notavail-btn'><i class='bi bi-hourglass-split'></i> in $remain_days days</p>";
                             }
                             ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['view_charid']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
+                            <div class="collapse" id="<?php echo $fetchData['view_charid']; ?>">
+                                <div class="card card-body">
+                                    <strong>Mobile:</strong>
+                                    <p><?php echo $fetchData['donor_mobNum']; ?></p>
+                                    <strong>Email:</strong>
+                                    <p><?php echo $fetchData['donor_email']; ?></p>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 <?php $si_no++;
@@ -228,11 +227,22 @@ if (isset($_POST['request2'])) {
                             $avail_status = $fetchData['avail_status'];
                             $remain_days = $fetchData['remDays'];
                             if ($avail_status == 1) {
-                                echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                                echo  "<p class='btn btn-success btn-sm avail-btn'><i class='bi bi-check-circle'></i> Available Now</p>";
                             } else {
-                                echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                                echo "<p class='btn btn-warning btn-sm notavail-btn'><i class='bi bi-hourglass-split'></i> in $remain_days days</p>";
                             }
                             ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['view_charid']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
+                            <div class="collapse" id="<?php echo $fetchData['view_charid']; ?>">
+                                <div class="card card-body">
+                                    <strong>Mobile:</strong>
+                                    <p><?php echo $fetchData['donor_mobNum']; ?></p>
+                                    <strong>Email:</strong>
+                                    <p><?php echo $fetchData['donor_email']; ?></p>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 <?php $si_no++;
@@ -290,11 +300,22 @@ if (isset($_POST['request3'])) {
                             $avail_status = $fetchData['avail_status'];
                             $remain_days = $fetchData['remDays'];
                             if ($avail_status == 1) {
-                                echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                                echo  "<p class='btn btn-success btn-sm avail-btn'><i class='bi bi-check-circle'></i> Available Now</p>";
                             } else {
-                                echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                                echo "<p class='btn btn-warning btn-sm notavail-btn'><i class='bi bi-hourglass-split'></i> in $remain_days days</p>";
                             }
                             ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['view_charid']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
+                            <div class="collapse" id="<?php echo $fetchData['view_charid']; ?>">
+                                <div class="card card-body">
+                                    <strong>Mobile:</strong>
+                                    <p><?php echo $fetchData['donor_mobNum']; ?></p>
+                                    <strong>Email:</strong>
+                                    <p><?php echo $fetchData['donor_email']; ?></p>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 <?php $si_no++;

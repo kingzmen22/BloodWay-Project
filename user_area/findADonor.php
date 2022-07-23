@@ -15,10 +15,6 @@ if (isset($_SESSION["user_email"])) {
   $rows_count = mysqli_num_rows($result);
 }
 
-if (isset($_GET['view'])) {
-  $id = $_GET['view'];
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +35,7 @@ if (isset($_GET['view'])) {
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 </head>
-<style>
-</style>
+
 </head>
 
 <body>
@@ -51,7 +46,7 @@ if (isset($_GET['view'])) {
 
   <!-- searchbar -->
   <h3 class="mt-3 mx-3">
-    Search for donors here
+    <center>Search for donors here</center>
   </h3>
 
   <div class="container">
@@ -103,7 +98,7 @@ if (isset($_GET['view'])) {
       </div>
 
       <h6 class="mt-2">
-        <center>-------OR-------</center>
+        <center>--------------OR--------------</center>
       </h6>
 
       <div class="col">
@@ -153,8 +148,8 @@ if (isset($_GET['view'])) {
                 ?>
               </td>
               <td>
-                <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['donor_name']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
-                <div class="collapse" id="<?php echo $fetchData['donor_name']; ?>">
+                <a class="btn btn-primary btn-sm view-btn" data-bs-toggle="collapse" href="#<?php echo $fetchData['view_charid']; ?>" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-eye-fill"></i> View</a>
+                <div class="collapse" id="<?php echo $fetchData['view_charid']; ?>">
                   <div class="card card-body">
                     <strong>Mobile:</strong>
                     <p><?php echo $fetchData['donor_mobNum']; ?></p>

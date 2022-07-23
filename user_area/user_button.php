@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION["user_email"])) {
+    header('location:common_user_func/error404.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 

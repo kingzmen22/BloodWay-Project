@@ -1,3 +1,6 @@
+<?php
+$error = "";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +15,28 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <style>
+    :root {
+        --container-body-bg: whitesmoke;
+        --input-field-bg: white;
+        --bg-text-color: black;
+        --input-text-color: white;
+
+    }
+
+    .dark-theme {
+        --container-body-bg: rgb(35, 36, 53);
+        --input-field-bg: #201f2c;
+        --bg-text-color: white;
+        --input-text-color: black;
+    }
+
     body {
-        background: rgba(44, 80, 129, 1);
+        background: var(--container-body-bg);
+        color: var(--bg-text-color);
+    }
+
+    .panel-body {
+        background-color: var(--input-field-bg);
     }
 
     .form-gap {
@@ -25,11 +48,11 @@
     }
 
     .alert {
-            height: 30px;
-            display: none;
-            margin-bottom: 10px;
-            padding: .2rem 1rem;
-        }
+        height: 30px;
+        display: none;
+        margin-bottom: 10px;
+        padding: .2rem 1rem;
+    }
 </style>
 <?php
 if ($error != null) {
@@ -45,6 +68,7 @@ if ($error != null) {
 
 <body>
     <div class="form-gap"></div>
+    <h6 id="icon"></h6>
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -87,5 +111,41 @@ if ($error != null) {
         </div>
     </div>
 </body>
+<!-- dark theme js -->
+<script>
+    var icon = document.getElementById("icon");
+
+    icon.onclick = function() {
+        var SetTheme = document.body;
+
+        SetTheme.classList.toggle("dark-theme");
+
+        var theme;
+
+        if (SetTheme.classList.contains("dark-theme")) {
+            console.log("Dark mode");
+            theme = "DARK";
+        } else {
+            console.log("Light mode");
+            theme = "LIGHT";
+        }
+
+        localStorage.setItem("PageTheme", JSON.stringify(theme));
+
+        if (document.body.classList.contains("dark-theme")) {
+            icon.src = "../images/sun.png";
+        } else {
+            icon.src = "../images/moon.png";
+        }
+    };
+
+    let GetTheme = JSON.parse(localStorage.getItem("PageTheme"));
+    console.log(GetTheme);
+
+    if (GetTheme === "DARK") {
+        document.body.classList = "dark-theme";
+        icon.src = "../images/sun.png";
+    }
+</script>
 
 </html>

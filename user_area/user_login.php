@@ -191,7 +191,7 @@ if ($error != null) {
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg" name="user_login">Sign In</button>
                 </div>
-                <div class="link forget-pass text-center" id="for_pass"><a href="forgot-password.php">Forgot password?</a></div>
+                <div class="link forget-pass text-center" id="for_pass"><a href="forgot_password.php">Forgot password?</a></div>
                 <div class="text-center"> Don't have an account? <a href="user_signup.php">SignUp here</a></div>
             </form>
 

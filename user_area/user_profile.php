@@ -1,6 +1,9 @@
 <?php
 session_start();
 include('../includes/connect.php');
+if (!isset($_SESSION["user_email"])) {
+    header('location:common_user_func/error404.php');
+}
 $user_email = $_SESSION['user_email'];
 if (isset($_SESSION['user_email'])) {
     $select_query = "Select * from user_details where  user_email='$user_email'";

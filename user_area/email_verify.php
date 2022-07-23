@@ -1,5 +1,8 @@
 <?php
 include('../includes/connect.php');
+if (!isset($_SESSION["user_email"])) {
+    header('location:common_user_func/error404.php');
+}
 if (isset($_GET['vkey'])) {
     $vkey = $_GET['vkey'];
 

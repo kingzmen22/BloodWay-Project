@@ -20,7 +20,7 @@ if (isset($_SESSION["user_email"])) {
   header('location:regform_login_redirect.php');
 }
 
-if(isset($_POST['donor_dob'])){
+if (isset($_POST['donor_dob'])) {
   $donor_dob = test_input($_POST['donor_dob']);
   $age = getAge($donor_dob);
 }
@@ -39,7 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $donor_gender = test_input($_POST['donor_gender']);
   $donor_category = test_input($_POST['donor_category']);
 
+  $avail_status = 1;
 
+  $keylength = 18;
+  $strg = "qwertyuioplaksjdhfgmznxbcv";
+  $randStr = substr(str_shuffle($strg), 0, $keylength);
 
 
   // input validation
@@ -87,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $donor_category = $con->real_escape_string($donor_category);
       //insert query
 
-      $insert_query = "insert into donor_details (donor_name,donor_email,donor_dob,donor_age,donor_mobNum,donor_zone,donor_bgrp,donor_gender,donor_weight,donor_category) values ('$donor_name','$donor_email','$donor_dob','$donor_age','$donor_mobnum','$donor_zone','$donor_bgrp','$donor_gender','$donor_weight','$donor_category')";
+      $insert_query = "insert into donor_details (donor_name,donor_email,donor_dob,donor_age,donor_mobNum,donor_zone,donor_bgrp,donor_gender,donor_weight,donor_category,avail_status,view_charid) values ('$donor_name','$donor_email','$donor_dob','$donor_age','$donor_mobnum','$donor_zone','$donor_bgrp','$donor_gender','$donor_weight','$donor_category','$avail_status','$randStr')";
       $sql_execute = mysqli_query($con, $insert_query);
       echo "<script>alert('Successfully Registered!')</script>";
       header('location:reg_form.php');
@@ -103,10 +107,11 @@ function test_input($data)
   return $data;
 }
 
-function getAge($dob){
+function getAge($dob)
+{
   $bday = new DateTime($dob);
   $today = new DateTime(date('m.d.y'));
-  if($bday>$today){
+  if ($bday > $today) {
     return 0;
   }
   $diff = $today->diff($bday);
