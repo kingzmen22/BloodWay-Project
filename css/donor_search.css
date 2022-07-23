@@ -1,0 +1,67 @@
+:root {
+  --container-body-bg: whitesmoke;
+  --input-field-bg: white;
+  --bg-text-color: black;
+  --input-text-color: white;
+  --placeholder-text-color: rgb(87, 83, 83);
+}
+
+.dark-theme {
+  --container-body-bg: rgb(35, 36, 53);
+  --input-field-bg: #201f2c;
+  --bg-text-color: white;
+  --input-text-color: black;
+  --placeholder-text-color: #ccc;
+}
+
+body {
+  background-color: var(--container-body-bg);
+  color: var(--bg-text-color);
+}
+
+.form-select{
+  background-color: var(--input-field-bg);
+  color: var(--bg-text-color);
+}
+.form-control{
+    background-color: var(--input-field-bg);
+    color: var(--bg-text-color);
+}
+
+.form-control::placeholder{
+    
+    color: var(--placeholder-text-color);
+}
+
+
+.filter-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.filt-btn {
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+}
+.notavail-btn {
+  font-size: 13px;
+}
+
+.avail-btn {
+  font-size: 13px;
+}
+
+.filt-btn:focus {
+  background-color: #1976d2;
+}
+
+.filt-btn:hover {
+  background-color: #1565c0;
+}
+
+.bi-funnel {
+  margin-right: 4px;
+}

@@ -80,7 +80,7 @@ if (isset($_POST['donated_update'])) {
                     $availStatus = 0;
                 }
                 // updating donor details table with status varible set.
-                $update_query = "UPDATE donor_details SET avail_status='$availStatus' WHERE  donor_email='$conf_email'";
+                $update_query = "UPDATE donor_details SET avail_status='$availStatus', remDays='$remainDate' WHERE  donor_email='$conf_email'";
                 $update_sql_exec = mysqli_query($con, $update_query);
                 // iff updating done then heading to donor detals.php
                 if ($update_sql_exec) {

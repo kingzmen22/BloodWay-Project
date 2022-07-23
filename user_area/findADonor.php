@@ -30,32 +30,12 @@ if (isset($_SESSION["user_email"])) {
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/style_signup.css" />
   <link rel="stylesheet" href="../css/fullbs5.css" />
+  <link rel="stylesheet" href="../css/donor_search.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <style>
-  /* body {
-    background-color: white;
-  } */
-
-  .filter-btn {
-    display: flex;
-    justify-content: center;
-
-  }
-
-  .filt-btn {
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: #1976D2;
-    color: white;
-    border: none;
-  }
-
-  .bi-funnel {
-    margin-right: 4px;
-  }
 </style>
 </head>
 
@@ -160,13 +140,15 @@ if (isset($_SESSION["user_email"])) {
               <td>
                 <?php
                 $avail_status = $fetchData['avail_status'];
+                $remain_days = $fetchData['remDays'];
                 if ($avail_status == 1) {
-                  echo  "<p class='btn btn-success btn-sm'>Available</p>";
+                  echo  "<p class='btn btn-success btn-sm avail-btn'>Available Now</p>";
                 } else {
-                  echo "<p class='btn btn-warning btn-sm'>Not Available</p>";
+                  echo "<p class='btn btn-warning btn-sm notavail-btn'>Available in $remain_days days</p>";
                 }
                 ?>
               </td>
+
             </tr>
           <?php $si_no++;
           endwhile; ?>

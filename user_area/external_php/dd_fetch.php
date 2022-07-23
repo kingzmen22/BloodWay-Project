@@ -22,12 +22,20 @@ include('../../includes/connect.php');
 
     }
 
-    .btn {
+    .filt-btn {
         padding-left: 30px;
         padding-right: 30px;
         background-color: #1976D2;
         color: white;
         border: none;
+    }
+
+    .filt-btn:focus {
+        background-color: #1976D2;
+    }
+
+    .filt-btn:hover {
+        background-color: #1565C0;
     }
 
     .bi-funnel {
@@ -46,50 +54,61 @@ if (isset($_POST['fetchZone'])) {
         where donor_bgrp='$request1'and donor_zone='$request2'and donor_category='$request3'";
         $result = mysqli_query($con, $query);
         $count = mysqli_num_rows($result);
-    
+
 ?>
-    <table class="table mt-5 table-dark table-hover table-responsive donors-list">
-        <?php
-        if ($count) {
-        ?>
-            <thead>
-                <tr>
-                    <th>SI No.</th>
-                    <th>Name</th>
-                    <th>Blood Group</th>
-                    <th>Distirct/Zone</th>
-                    <th>Status</th>
-                    <th>Contact</th>
-                </tr>
-
+        <table class="table mt-5 table-dark table-hover table-responsive donors-list">
             <?php
-        } else {
+            if ($count) {
             ?>
-                <h3 class="mt-5">
-                    <center><?php echo "Sorry! No record found."; ?></center>
-                </h3>
-
-            <?php
-        }
-
-            ?>
-            </thead>
-            <tbody>
-                <?php
-                $si_no = 1;
-                while ($fetchData = mysqli_fetch_assoc($result)) : ?>
+                <thead>
                     <tr>
-                        <th><?php echo $si_no; ?></th>
-                        <td><?php echo $fetchData['donor_name']; ?></td>
-                        <td><?php echo $fetchData['donor_bgrp']; ?></td>
-                        <td><?php echo $fetchData['donor_zone']; ?></td>
+                        <th>SI No.</th>
+                        <th>Name</th>
+                        <th>Blood Group</th>
+                        <th>Distirct/Zone</th>
+                        <th>Status</th>
+                        <th>Contact</th>
                     </tr>
-                <?php $si_no++;
-                endwhile; ?>
-            </tbody>
-    </table>
+
+                <?php
+            } else {
+                ?>
+                    <h3 class="mt-5">
+                        <center><?php echo "Sorry! No record found."; ?></center>
+                    </h3>
+
+                <?php
+            }
+
+                ?>
+                </thead>
+                <tbody>
+                    <?php
+                    $si_no = 1;
+                    while ($fetchData = mysqli_fetch_assoc($result)) : ?>
+                        <tr>
+                            <th><?php echo $si_no; ?></th>
+                            <td><?php echo $fetchData['donor_name']; ?></td>
+                            <td><?php echo $fetchData['donor_bgrp']; ?></td>
+                            <td><?php echo $fetchData['donor_zone']; ?></td>
+                            <td>
+                                <?php
+                                $avail_status = $fetchData['avail_status'];
+                                $remain_days = $fetchData['remDays'];
+                                if ($avail_status == 1) {
+                                    echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                                } else {
+                                    echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                    <?php $si_no++;
+                    endwhile; ?>
+                </tbody>
+        </table>
 <?php
-}
+    }
 }
 ?>
 
@@ -142,6 +161,17 @@ if (isset($_POST['request1'])) {
                         <td><?php echo $fetchData['donor_name']; ?></td>
                         <td><?php echo $fetchData['donor_bgrp']; ?></td>
                         <td><?php echo $fetchData['donor_zone']; ?></td>
+                        <td>
+                            <?php
+                            $avail_status = $fetchData['avail_status'];
+                            $remain_days = $fetchData['remDays'];
+                            if ($avail_status == 1) {
+                                echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                            } else {
+                                echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                            }
+                            ?>
+                        </td>
                     </tr>
                 <?php $si_no++;
                 endwhile; ?>
@@ -193,6 +223,17 @@ if (isset($_POST['request2'])) {
                         <td><?php echo $fetchData['donor_name']; ?></td>
                         <td><?php echo $fetchData['donor_bgrp']; ?></td>
                         <td><?php echo $fetchData['donor_zone']; ?></td>
+                        <td>
+                            <?php
+                            $avail_status = $fetchData['avail_status'];
+                            $remain_days = $fetchData['remDays'];
+                            if ($avail_status == 1) {
+                                echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                            } else {
+                                echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                            }
+                            ?>
+                        </td>
                     </tr>
                 <?php $si_no++;
                 endwhile; ?>
@@ -244,6 +285,17 @@ if (isset($_POST['request3'])) {
                         <td><?php echo $fetchData['donor_name']; ?></td>
                         <td><?php echo $fetchData['donor_bgrp']; ?></td>
                         <td><?php echo $fetchData['donor_zone']; ?></td>
+                        <td>
+                            <?php
+                            $avail_status = $fetchData['avail_status'];
+                            $remain_days = $fetchData['remDays'];
+                            if ($avail_status == 1) {
+                                echo  "<p class='btn btn-success btn-sm'>Available Now</p>";
+                            } else {
+                                echo "<p class='btn btn-warning btn-sm'>Available in $remain_days days</p>";
+                            }
+                            ?>
+                        </td>
                     </tr>
                 <?php $si_no++;
                 endwhile; ?>

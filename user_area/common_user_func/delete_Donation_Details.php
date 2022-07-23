@@ -36,7 +36,7 @@ if (isset($_GET['delete'])) {
                 $availStatus = 0;
             }
             // updating donor details table with status varible set.
-            $update_query = "UPDATE donor_details SET avail_status='$availStatus' WHERE  donor_email='$conf_email'";
+            $update_query = "UPDATE donor_details SET avail_status='$availStatus' , remDays='$remainDate' WHERE  donor_email='$conf_email'";
             $update_sql_exec = mysqli_query($con, $update_query);
             if ($update_sql_exec) {
                 $_SESSION['status'] = "Details deleted Successfully!";
