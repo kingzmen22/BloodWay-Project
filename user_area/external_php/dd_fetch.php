@@ -66,7 +66,7 @@ if (isset($_POST['fetchZone'])) {
         } else {
             ?>
                 <h3 class="mt-5">
-                    <center><?php echo "Noooii record found"; ?></center>
+                    <center><?php echo "Sorry! No record found."; ?></center>
                 </h3>
 
             <?php

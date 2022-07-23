@@ -25,7 +25,6 @@ if (isset($_GET['edit'])) {
         if (isset($_POST['donated_update'])) {
             $donated_hospital = test_input($_POST['donated_hospital']);
             $donated_date = test_input($_POST['donated_date']);
-            $_SESSION['donated-date']=$donated_date;
 
             $donated_certificate = $_FILES['donated_certificate'];
             $imgname = $donated_certificate['name'];
@@ -43,14 +42,43 @@ if (isset($_GET['edit'])) {
             }
             $update_query = "UPDATE donation_details SET dona_hospName='$donated_hospital',dona_date='$donated_date',dona_certif='$upload_img' WHERE dona_id='$id' ";
             $sql_execute = mysqli_query($con, $update_query);
+
             if ($sql_execute) {
-                $_SESSION['status']="Details updated successfully!";
-                $_SESSION['status-mode']="alert-success";
-                header('location:../donor_details.php');
-            }
-            else{
-                $_SESSION['status']="Something Went Wrong!";
-                $_SESSION['status-mode']="alert-danger";
+
+                // here date stored in donation details db is accessed and max date is retrieved. 
+                $select_query = "SELECT * from donation_details where dona_email='$conf_email' and dona_date=(SELECT max(dona_date) from donation_details)";
+                $result = mysqli_query($con, $select_query);
+                $rows_count = mysqli_num_rows($result);
+                $fetchdata = mysqli_fetch_array($result);
+                if ($rows_count) {
+                    $max_date = $fetchdata['dona_date'];
+                    // this max date is used to calculate the remaining days by adding 90 days to the same.
+                    $latest_date = new DateTime($max_date);
+                    $latest_date = $latest_date->modify('+90 day');
+                    $todayDate = new DateTime('now');
+                    // taking current date and calculating difference with latest date.
+                    $diff = date_diff($todayDate, $latest_date);
+                    $remainDate = $diff->format("%a");
+                    // checking date-> if greater than 90 days then available to donate 
+                    // so set stastus variable to 1 else not available so set it 0.
+                    if ($remainDate > 90) {
+                        $availStatus = 1;
+                    } else {
+                        $availStatus = 0;
+                    }
+                    // updating donor details table with status varible set.
+                    $update_query = "UPDATE donor_details SET avail_status='$availStatus' WHERE  donor_email='$conf_email'";
+                    $update_sql_exec = mysqli_query($con, $update_query);
+
+                    if ($update_sql_exec) {
+                        $_SESSION['status'] = "Details updated successfully!";
+                        $_SESSION['status-mode'] = "alert-success";
+                        header('location:../donor_details.php');
+                    }
+                }
+            } else {
+                $_SESSION['status'] = "Something Went Wrong!";
+                $_SESSION['status-mode'] = "alert-danger";
                 header('location:../donor_details.php');
             }
         }

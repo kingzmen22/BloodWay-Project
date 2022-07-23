@@ -10,4 +10,3 @@ $todayDate = new DateTime('now');
 $diff = date_diff($todayDate, $latest_date);
 $activeDate= $diff->format("%a days");
 echo $activeDate;
-

@@ -15,6 +15,8 @@ if (isset($_SESSION["user_email"])) {
   $rows_count = mysqli_num_rows($result);
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +45,7 @@ if (isset($_SESSION["user_email"])) {
 
   }
 
-  .btn {
+  .filt-btn {
     padding-left: 30px;
     padding-right: 30px;
     background-color: #1976D2;
@@ -113,7 +115,7 @@ if (isset($_SESSION["user_email"])) {
       </div>
 
       <div class="mt-3 filter-btn">
-        <button type="button" id="filter-btn" class="btn btn-dark btn-sm"><i class="bi bi-funnel"></i> Filter</button>
+        <button type="button" id="filter-btn" class="btn btn-dark btn-sm filt-btn"><i class="bi bi-funnel"></i> Filter</button>
       </div>
 
       <h6 class="mt-2">
@@ -127,11 +129,8 @@ if (isset($_SESSION["user_email"])) {
     </div>
   </div>
 
-
-
   <!-- table -->
   <?php
-
   if ($rows_count < 1) { ?>
     <h4 class="norecord-findon">No records found!</h4>
   <?php
@@ -158,6 +157,16 @@ if (isset($_SESSION["user_email"])) {
               <td><?php echo $fetchData['donor_name']; ?></td>
               <td><?php echo $fetchData['donor_bgrp']; ?></td>
               <td><?php echo $fetchData['donor_zone']; ?></td>
+              <td>
+                <?php
+                $avail_status = $fetchData['avail_status'];
+                if ($avail_status == 1) {
+                  echo  "<p class='btn btn-success btn-sm'>Available</p>";
+                } else {
+                  echo "<p class='btn btn-warning btn-sm'>Not Available</p>";
+                }
+                ?>
+              </td>
             </tr>
           <?php $si_no++;
           endwhile; ?>
@@ -166,12 +175,12 @@ if (isset($_SESSION["user_email"])) {
       </table>
     </div>
   <?php } ?>
-  <!-- footer -->
 
+
+  <!-- footer -->
   <?php
   include('common_user_func/user_footer.php');
   ?>
-
 
 </body>
 
@@ -290,9 +299,9 @@ if (isset($_SESSION["user_email"])) {
           fetchCateg: fetchCateg
         },
         function(data, status) {
-          if (data == "success"){
+          if (data == "success") {
             $(".bgclass").html(data);
-          }else{
+          } else {
             $(".bgclass").html(data);
           }
         });

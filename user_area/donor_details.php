@@ -18,9 +18,6 @@ if (isset($_SESSION["user_email"])) {
     $rows_count = mysqli_num_rows($result);
 }
 
-
-
-
 if (isset($_POST['donated_update'])) {
     $donated_hospital = test_input($_POST['donated_hospital']);
     $donated_date = test_input($_POST['donated_date']);
@@ -34,7 +31,6 @@ if (isset($_POST['donated_update'])) {
         header('location:donor_details.php');
         exit(0);
     } else {
-        $_SESSION['donated-date'] = $donated_date;
         $image = $_FILES['donated_certificate'];
         $imgnam = $image['name'];
         $donated_hospital = $con->real_escape_string($donated_hospital);
@@ -61,10 +57,39 @@ if (isset($_POST['donated_update'])) {
         }
 
         if ($sql_execute) {
-            $_SESSION['status'] = "Details added successfully!";
-            $_SESSION['status-mode'] = "alert-success";
-            header('location:donor_details.php');
-            exit(0);
+
+            // here date stored in donation details db is accessed and max date is retrieved. 
+            $select_query = "SELECT * from donation_details where dona_email='$conf_email' and dona_date=(SELECT max(dona_date) from donation_details)";
+            $result = mysqli_query($con, $select_query);
+            $rows_count = mysqli_num_rows($result);
+            $fetchdata = mysqli_fetch_array($result);
+            if ($rows_count) {
+                $max_date = $fetchdata['dona_date'];
+                // this max date is used to calculate the remaining days by adding 90 days to the same.
+                $latest_date = new DateTime($max_date);
+                $latest_date = $latest_date->modify('+90 day');
+                $todayDate = new DateTime('now');
+                // taking current date and calculating difference with latest date.
+                $diff = date_diff($todayDate, $latest_date);
+                $remainDate = $diff->format("%a");
+                // checking date-> if greater than 90 days then available to donate 
+                // so set stastus variable to 1 else not available so set it 0.
+                if ($remainDate > 90) {
+                    $availStatus = 1;
+                } else {
+                    $availStatus = 0;
+                }
+                // updating donor details table with status varible set.
+                $update_query = "UPDATE donor_details SET avail_status='$availStatus' WHERE  donor_email='$conf_email'";
+                $update_sql_exec = mysqli_query($con, $update_query);
+                // iff updating done then heading to donor detals.php
+                if ($update_sql_exec) {
+                    $_SESSION['status'] = "Details added successfully!";
+                    $_SESSION['status-mode'] = "alert-success";
+                    header('location:donor_details.php');
+                    exit(0);
+                }
+            }
         } else {
             $_SESSION['status'] = "Something went wrong!";
             $_SESSION['status-mode'] = "alert-danger";
@@ -297,6 +322,7 @@ function test_input($data)
     unset($_SESSION['status']);
     unset($_SESSION['status-mode']);
     ?>
+
     <!-- Donor detals card -->
 
     <div class="container-redir">
@@ -478,8 +504,8 @@ function test_input($data)
                                         <td> <?php echo $fetchData['dona_hospName']; ?></td>
                                         <td><a href='common_user_func\certif_show.php?certif=<?php echo $fetchData['dona_id']; ?>' target="_blank" class='butn-a-don-rel'> <button class='butn-don-rel1 fullscreen_toggle' name='view_certif'><i class='bi bi-arrows-fullscreen'></i> View Certificate</button></a></td>
                                         <td>
-                                            <a href='common_user_func\edit_donation_details.php?edit=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 edit_toggle' name='donated_update'><i class='bi bi-pencil-square'></i></button></a>
-                                            <a href='common_user_func\delete_donation_details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_update'><i class='bi bi-trash3'></i></button></a>
+                                            <a href='common_user_func\edit_donation_details.php?edit=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 edit_toggle' name='donated_edit'><i class='bi bi-pencil-square'></i></button></a>
+                                            <a href='common_user_func\delete_donation_details.php?delete=<?php echo $fetchData['dona_id']; ?>' class='butn-a-don-rel'><button class='butn-don-rel1 delete_toggle' name='donated_delete'><i class='bi bi-trash3'></i></button></a>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
