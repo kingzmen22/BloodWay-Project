@@ -37,54 +37,9 @@ if (isset($_SESSION['user_email'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Account?</title>
+    <link rel="stylesheet" href="../css/deleteAccount.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<style>
-    :root {
-        --form-bg: white;
-        --text-form: black;
-        --formfield-bg: #EEEEEE;
-        --form-focus-color: #F5F5F5;
-        --text-card-title: #424242;
-        --text-card-text: #616161;
-        --border-display: 1px solid #ccc;
-    }
-
-    .dark-theme {
-        --form-bg: #181c28;
-        --text-form: white;
-        --formfield-bg: #292a40;
-        --form-focus-color: rgb(35, 36, 53);
-        --text-card-title: #EEEEEE;
-        --text-card-text: #BDBDBD;
-        --border-display: none;
-    }
-
-    body {
-        background-color: var(--form-bg);
-    }
-
-    .card {
-        border: var(--border-display);
-    }
-
-    .card-header {
-        background-color: var(--formfield-bg);
-        color: var(--text-form);
-    }
-
-    .card-body {
-        background-color: var(--form-focus-color);
-    }
-
-    .card-title {
-        color: var(--text-card-title);
-    }
-
-    .card-text {
-        color: var(--text-card-text);
-    }
-</style>
 
 <body>
     <h6><i class="zz" id="icon"></i></h6>

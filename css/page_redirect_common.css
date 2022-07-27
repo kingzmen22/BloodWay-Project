@@ -6,6 +6,7 @@
     }
 
     .dark-theme {
+        transition: all 0.3s;
         --container-redir-bg: rgb(35, 36, 53);
         --content-redir-bg: #292a40;
         --content-redir-text:white;

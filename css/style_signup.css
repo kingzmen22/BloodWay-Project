@@ -5,19 +5,29 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
-  
 }
 
 :root {
   --primary-color: #ffffff;
   --secondary-color: #1c1d25;
   --ripple-color: #1264e3;
+  --form-bg: white;
+  --text-form: black;
+  --white-text: white;
+  --atag-color: #031b85;
+  --formfield-bg: #ffffff;
 }
 
 .dark-theme {
-  --primary-color: rgb(21,32,43);
+  transition: all 0.3s;
+  --primary-color: rgb(21, 32, 43);
   --secondary-color: hsl(0, 0%, 100%);
   --ripple-color: #0b2142;
+  --form-bg: rgb(21, 32, 43);
+  --text-form: white;
+  --white-text: rgb(21, 32, 43);
+  --atag-color: #ffffff;
+  --formfield-bg: #181c28;
 }
 
 body {
@@ -196,7 +206,7 @@ form .btn {
 
 .signup-form .form-control {
   min-height: 38px;
-  box-shadow: none ;
+  box-shadow: none;
 }
 
 .signup-form .input-group-addon {
@@ -208,18 +218,17 @@ form .btn {
 .signup-form .btn:active {
   font-size: 16px;
   font-weight: bold;
-  background: #265df2 ;
+  background: #265df2;
   border: none;
   min-width: 140px;
 }
 
 .signup-form .btn:hover,
 .signup-form .btn:focus {
-  background: #263df2 ;
+  background: #263df2;
 }
 
-
-.text-center{
+.text-center {
   color: rgb(119, 115, 115);
 }
 .signup-form a:hover {
@@ -250,4 +259,47 @@ form .btn {
   top: 18px;
   font-size: 7px;
   position: absolute;
+}
+
+a:hover {
+  background: var(--nav-element-hover);
+  transition: 0.5s;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.signup-form form a:hover {
+  background-color: #ffffff;
+}
+
+.alert {
+  height: 30px;
+  display: none;
+  margin-bottom: 10px;
+  padding: 0.2rem 1rem;
+}
+
+.form-group {
+  margin-top: 10px;
+}
+
+.signup-form form {
+  background: var(--form-bg);
+}
+
+.signup-form h2 {
+  color: var(--text-form);
+}
+
+.signup-form form a:hover {
+  background-color: var(--white-text);
+}
+
+.signup-form form a {
+  color: var(--atag-color);
+}
+
+.form-control {
+  background-color: var(--formfield-bg);
+  color: var(--text-form);
 }

@@ -9,6 +9,7 @@
 }
 
 .dark-theme {
+  transition: all 0.3s;
   --container-body-bg: rgb(35, 36, 53);
   --input-field-bg: #201f2c;
   --bg-text-color: white;
@@ -87,4 +88,11 @@ body {
   --bs-card-border-radius: 0px;
   background-color: var(--table-bg);
   color: var(--table-text);
+}
+
+.norecord-findon {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }

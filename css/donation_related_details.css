@@ -5,6 +5,7 @@
 }
 
 .dark-theme {
+  transition: all 0.3s;
   --container-don-rel-bg: rgb(35, 36, 53);
   --content-don-rel-bg: #292a40;
   --bt-icon-color: white;

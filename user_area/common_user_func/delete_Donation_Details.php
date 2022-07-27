@@ -19,7 +19,7 @@ if (isset($_GET['delete'])) {
         $result = mysqli_query($con, $select_query);
         $rows_count = mysqli_num_rows($result);
         $fetchdata = mysqli_fetch_array($result);
-        if ($rows_count) {
+        if ($rows_count >= 0) {
             $max_date = $fetchdata['dona_date'];
             // this max date is used to calculate the remaining days by adding 90 days to the same.
             $latest_date = new DateTime($max_date);
@@ -28,11 +28,7 @@ if (isset($_GET['delete'])) {
             // taking current date and calculating difference with latest date.
             $diff = date_diff($todayDate, $latest_date);
             $remainDate = $diff->format("%a");
-            
-            if ($rows_count == 0){
-                $avail_status=1;
-                $remainDate=0;
-            }
+
             // checking date-> if greater than 90 days then available to donate 
             // so set stastus variable to 1 else not available so set it 0.
             if ($remainDate > 90) {
@@ -48,10 +44,10 @@ if (isset($_GET['delete'])) {
                 $_SESSION['status-mode'] = "alert-success";
                 header('location:../donor_details.php');
             }
-        } else {
-            $_SESSION['status'] = "Something went wrong!";
-            $_SESSION['status-mode'] = "alert-danger";
-            header('location:../donor_details.php');
         }
+    } else {
+        $_SESSION['status'] = "Something went wrong!";
+        $_SESSION['status-mode'] = "alert-danger";
+        header('location:../donor_details.php');
     }
 }

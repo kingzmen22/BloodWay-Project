@@ -1,5 +1,34 @@
 <?php
 $error = "";
+if (isset($_GET['vkey'])) {
+    $vkey = $_GET['vkey'];
+
+    $select_query_verify = "SELECT * from user_details where vkey='$vkey'";
+    $select_result_verify = mysqli_query($con, $select_query_verify);
+    $rows_count_verify = mysqli_num_rows($select_result_verify);
+}
+
+if (isset($_POST['recover_submit'])) {
+    $user_password = $_POST['user_password'];
+    $user_password = $con->real_escape_string($user_password);
+    $conf_user_password = $_POST['conf_user_password'];
+    $conf_user_password = $con->real_escape_string($conf_user_password);
+
+    if ($rows_count_verify) {
+        if ($user_password == $conf_user_password) {
+
+            $hash_password = password_hash($user_password, PASSWORD_DEFAULT);
+            $update_query = "UPDATE user_details SET user_password ='$hash_password' WHERE vkey='$vkey'";
+            $sql_execute = mysqli_query($con, $update_query);
+            if ($sql_execute) {
+                header('location:user_login.php');
+            }
+        } else {
+            $error = "Passwords do not match!";
+            exit(0);
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,52 +37,14 @@ $error = "";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reset Password </title>
+    <link rel="stylesheet" href="../css/reset_pass.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
-<style>
-    :root {
-        --container-body-bg: whitesmoke;
-        --input-field-bg: white;
-        --bg-text-color: black;
-        --input-text-color: white;
 
-    }
-
-    .dark-theme {
-        --container-body-bg: rgb(35, 36, 53);
-        --input-field-bg: #201f2c;
-        --bg-text-color: white;
-        --input-text-color: black;
-    }
-
-    body {
-        background: var(--container-body-bg);
-        color: var(--bg-text-color);
-    }
-
-    .panel-body {
-        background-color: var(--input-field-bg);
-    }
-
-    .form-gap {
-        padding-top: 70px;
-    }
-
-    .form-group {
-        margin-top: 30px;
-    }
-
-    .alert {
-        height: 30px;
-        display: none;
-        margin-bottom: 10px;
-        padding: .2rem 1rem;
-    }
-</style>
 <?php
 if ($error != null) {
 ?>
@@ -97,10 +88,8 @@ if ($error != null) {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                        <input name="recover_submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
                                     </div>
-
-                                    <input type="hidden" class="hide" name="token" id="token" value="">
                                 </form>
 
                             </div>

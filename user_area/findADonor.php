@@ -10,9 +10,14 @@ if (!isset($_SESSION["user_email"])) {
 
 if (isset($_SESSION["user_email"])) {
   $conf_email = $_SESSION['user_email'];
-  $select_query = "Select * from donor_details";
+  $select_query = "SELECT * from donor_details";
   $result = mysqli_query($con, $select_query);
   $rows_count = mysqli_num_rows($result);
+
+  $select_query_donation_details = "SELECT * from donation_details where dona_email='$conf_email'";
+  $result_donation_details = mysqli_query($con, $select_query_donation_details);
+  $rows_count_donation_details = mysqli_num_rows($result_donation_details);
+
 }
 
 ?>
@@ -34,8 +39,6 @@ if (isset($_SESSION["user_email"])) {
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
-</head>
-
 </head>
 
 <body>
@@ -140,6 +143,10 @@ if (isset($_SESSION["user_email"])) {
                 <?php
                 $avail_status = $fetchData['avail_status'];
                 $remain_days = $fetchData['remDays'];
+                if ($rows_count_donation_details == 0) {
+                  $avail_status = 1;
+                  $remain_days = 0;
+                }
                 if ($avail_status == 1) {
                   echo  "<p class='btn btn-success btn-sm avail-btn'><i class='bi bi-check-circle'></i> Available Now</p>";
                 } else {

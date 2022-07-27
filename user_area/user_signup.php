@@ -36,7 +36,6 @@ if (isset($_POST['user_signup'])) {
 
         $insert_query = "insert into user_details (user_name,user_email,user_password,vkey) values ('$user_username','$user_email','$hash_password','$vkey')";
         $sql_execute = mysqli_query($con, $insert_query);
-        // echo "<script>alert('Successfully Registered!')</script>";
 
         // account verification email sending
 
@@ -73,69 +72,6 @@ if (isset($_POST['user_signup'])) {
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-    <style>
-        :root {
-            --form-bg: white;
-            --text-form: black;
-            --white-text: white;
-            --atag-color: #031b85;
-            --formfield-bg: #ffffff;
-        }
-
-        .dark-theme {
-            --form-bg: rgb(21, 32, 43);
-            --text-form: white;
-            --white-text: rgb(21, 32, 43);
-            --atag-color: #ffffff;
-            --formfield-bg: #181c28;
-        }
-
-        a:hover {
-            background: var(--nav-element-hover);
-            transition: 0.5s;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .signup-form form a:hover {
-            background-color: #ffffff;
-        }
-
-        .alert {
-            height: 30px;
-            display: none;
-            margin-bottom: 10px;
-            padding: .2rem 1rem;
-        }
-
-        .form-group {
-            margin-top: 10px;
-        }
-
-        .signup-form form {
-            background: var(--form-bg);
-        }
-
-        .signup-form h2 {
-            color: var(--text-form);
-        }
-
-        .signup-form form a:hover {
-            background-color: var(--white-text);
-        }
-
-        .signup-form form a {
-            color: var(--atag-color);
-        }
-
-        .form-control {
-            background-color: var(--formfield-bg);
-            color: var(--text-form);
-        }
-    </style>
-
-
 </head>
 <?php
 if ($error != null) {

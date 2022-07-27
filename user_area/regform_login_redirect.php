@@ -3,15 +3,13 @@ session_start();
 include('../includes/connect.php');
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
 
     <meta charset="utf-8" />
-    <title>BloodWay Home</title>
+    <title>Login to continue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/page_redirect_common.css" />
@@ -89,6 +87,5 @@ include('../includes/connect.php');
         icon.src = "../images/sun.png";
     }
 </script>
-
 
 <script src="js/script.js"></script>

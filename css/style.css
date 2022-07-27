@@ -23,10 +23,11 @@
   --ham-menu-button: rgb(18, 32, 48);
   --black-text: black;
   --white-text: white;
-  --text-grayToWhite:#5d5d5d;
+  --text-grayToWhite: #5d5d5d;
 }
 
 .dark-theme {
+  transition: all 0.3s;
   --primary-color: rgb(21, 32, 43);
   --secondary-color: hsl(0, 0%, 100%);
   --nav-element: rgb(255, 255, 255);
@@ -40,7 +41,7 @@
   --ham-menu-button: rgb(184, 201, 218);
   --black-text: white;
   --white-text: black;
-  --text-grayToWhite:#3582f5;
+  --text-grayToWhite: #3582f5;
 }
 
 body {
@@ -97,8 +98,7 @@ nav ul li a {
   transition: 0.5s;
 }
 
-
-.nav-drkbtn-ul{
+.nav-drkbtn-ul {
   display: inline-flex;
   position: relative;
   float: right;
@@ -246,9 +246,6 @@ a:hover {
   }
 }
 
-
-
-
 /* contact us form */
 
 .container-contact {
@@ -334,7 +331,6 @@ a:hover {
   padding: 0 15px;
   resize: none;
 }
-
 
 .right-side .message-box {
   min-height: 110px;
@@ -568,7 +564,7 @@ select:focus {
   .user-details-reg .input-box-reg input {
     width: 100%;
   }
-  
+
   .user-details-reg .input-box-reg select {
     width: 100%;
   }
@@ -590,7 +586,7 @@ select:focus {
   .user-details-reg .input-box-reg input {
     width: 100%;
   }
-  
+
   .user-details-reg .input-box-reg select {
     width: 100%;
   }
@@ -838,7 +834,7 @@ footer .bottom-details .bottom_text {
 .bottom-details .bottom_text a {
   font-size: 14px;
   font-weight: 300;
-  color:white;
+  color: white;
   opacity: 0.8;
   text-decoration: none;
 }
@@ -1060,7 +1056,7 @@ footer .bottom-details .bottom_text {
   text-transform: uppercase;
   font-size: 28px;
 }
-.title-abt{
+.title-abt {
   color: var(--black-text);
 }
 .content-section-abt .content-abt h3 {
@@ -1075,7 +1071,7 @@ footer .bottom-details .bottom_text {
   line-height: 1.5;
 }
 
-.content-abt{
+.content-abt {
   color: var(--black-text);
 }
 .content-section-abt .content-abt .button-abt {
