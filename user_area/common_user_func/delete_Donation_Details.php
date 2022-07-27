@@ -28,6 +28,11 @@ if (isset($_GET['delete'])) {
             // taking current date and calculating difference with latest date.
             $diff = date_diff($todayDate, $latest_date);
             $remainDate = $diff->format("%a");
+            
+            if ($rows_count == 0){
+                $avail_status=1;
+                $remainDate=0;
+            }
             // checking date-> if greater than 90 days then available to donate 
             // so set stastus variable to 1 else not available so set it 0.
             if ($remainDate > 90) {

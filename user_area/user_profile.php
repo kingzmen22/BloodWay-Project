@@ -13,6 +13,17 @@ if (isset($_SESSION['user_email'])) {
     $useremail = $fetch['user_email'];
 }
 
+if (isset($_SESSION["user_email"])) {
+    $conf_email = $_SESSION['user_email'];
+    $select_query_donor_details = "SELECT * from donor_details where donor_email='$conf_email'";
+    $select_query_donation_details = "SELECT * from donation_details where dona_email='$conf_email'";
+    $result_donor_details = mysqli_query($con, $select_query_donor_details);
+    $result_donation_details = mysqli_query($con, $select_query_donation_details);
+    $rows_count_donation_details = mysqli_num_rows($result_donation_details);
+    $rows_count_donor_details = mysqli_num_rows($result_donor_details);
+    $fetchData = mysqli_fetch_assoc($result_donor_details);
+}
+
 //SQL_QUERY 
 
 if (isset($_POST['update-profile'])) {
@@ -196,7 +207,6 @@ if (isset($_POST['update-profile'])) {
 
         .allcontainer {
             display: flex;
-            /* flex-direction: row; */
             flex-wrap: wrap;
         }
 
@@ -255,6 +265,52 @@ if (isset($_POST['update-profile'])) {
 
         }
 
+        .container {
+            margin-left: 30px;
+        }
+
+        .cardTitle {
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+
+        .card>hr {
+            margin: 0;
+        }
+
+        .cardBody {
+            padding-left: 15px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .Cardbody-flex {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+
+        .status-btn {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin-left: 50px;
+        }
+
+        .big-num {
+            font-size: 30px;
+        }
+
+        .btn-ele1 {
+            margin-left: 50px;
+            margin-top: 10px;
+        }
+
+        .btn-ele2 {
+            margin-left: 50px;
+            margin-top: 10px;
+        }
+
         @media (max-width: 858px) {
             #sidebar-ul {
                 position: static;
@@ -272,6 +328,25 @@ if (isset($_POST['update-profile'])) {
             .sidebar {
                 width: 100%;
                 margin-left: 0px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .container {
+                margin-left: 0px;
+
+            }
+
+            .btn-ele1 {
+                margin-left: 10px;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+
+            .btn-ele2 {
+                margin-left: 20px;
+                margin-top: 10px;
+                font-size: 14px;
             }
         }
     </style>
@@ -304,6 +379,42 @@ if (isset($_POST['update-profile'])) {
     unset($_SESSION['error-mode']);
     ?>
 
+    <div class="container col-lg-6">
+        <div class="card">
+            <h5 class="cardTitle">Donor Profile</h5>
+            <hr>
+            <div class="Cardbody-flex">
+                <div class="cardBody">
+                    <p class="card-text"><strong>Name: </strong><?php echo $fetchData['donor_name']; ?> </p>
+                    <p class="card-text"><strong>Blood Group: </strong><?php echo $fetchData['donor_bgrp']; ?></p>
+                </div>
+                <div class="status-btn">
+                    <?php
+                    $avail_status = $fetchData['avail_status'];
+                    $remain_days = $fetchData['remDays'];
+                    if ($rows_count_donor_details == 0){
+                        $avail_status=1;
+                    }
+                    if ($avail_status == 1) {
+                        echo  "<p class='btn btn-outline-success btn-ele2'>You can <br> donate blood<br> now!</p>";
+                    } else {
+                            echo  "<p class='btn btn-outline-warning btn-ele2'>Next donation in <br> <strong class='big-num'> $remain_days </strong> <br> days</p>";
+                    }
+
+                    if ($rows_count_donation_details == 0) {
+                        echo  "<p class='btn btn-outline-danger btn-ele1'>Blood donated <br><strong class='big-num'> $rows_count_donation_details </strong> <br> times</p>";
+                    } else {
+                        echo  "<p class='btn btn-outline-info btn-ele1'>Blood donated <br><strong class='big-num'> $rows_count_donation_details </strong> <br> times</p>";
+                    }
+                    ?>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
     <div class="allcontainer">
         <!-- signup form -->
@@ -327,7 +438,7 @@ if (isset($_POST['update-profile'])) {
             <ul id="sidebar-ul">
                 <li class="sidebar-li"><a class="sidebar-list" href="changePass.php">Change Password</a></li>
                 <li class="sidebar-li"><a class="sidebar-list" href="deleteAccount.php">Delete Account</a></li>
-                <li class="sidebar-li"><a class="sidebar-list trigger-btn"  href="#logoutModal" data-toggle="modal">Logout</a></li>
+                <li class="sidebar-li"><a class="sidebar-list trigger-btn" href="#logoutModal" data-toggle="modal">Logout</a></li>
             </ul>
         </div>
     </div>

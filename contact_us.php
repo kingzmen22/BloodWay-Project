@@ -104,7 +104,7 @@ include('./includes/connect.php');
             <strong> Programme Officer</strong>
           <p> NSS Unit No: 584, SSET
           <div class="more">
-            <p class="cont-person-detail"> Assistant Professor <br> Automobile Engineering Dept. <br><b> Mob no:</b>+91 8547309440 <br><b>Email:</b> sujay@scmsgroup.org</p>
+            <p class="cont-person-detail"> Assistant Professor <br> Automobile Engineering Dept. <br><b> Mob no:</b>+91 9946290608 <br><b>Email:</b> rakesh@scmsgroup.org</p>
           </div>
           </p>
           </p>
